@@ -67,6 +67,13 @@
   </profiles>
 
   <build>
+    <filters>
+      <!--
+      Este filtro lo heredarán los submódulos. Por eso es que la ruta va
+      hacia atrás (..), para poder hacer referencia al filtro del proyecto padre.
+      -->
+      <filter>../src/main/resources/application-${spring.profiles.active}.properties</filter>
+    </filters>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
