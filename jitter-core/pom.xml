@@ -20,6 +20,7 @@
     <version.mapstruct>1.5.5.Final</version.mapstruct>
     <version.mapstruct-processor>1.5.5.Final</version.mapstruct-processor>
     <version.lombok-mapstruct>0.2.0</version.lombok-mapstruct>
+    <version.hibernate-jpamodelgen>6.4.4.Final</version.hibernate-jpamodelgen>
   </properties>
 
   <dependencies>
@@ -42,6 +43,11 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok-mapstruct-binding</artifactId>
       <version>${version.lombok-mapstruct}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>${version.hibernate-jpamodelgen}</version>
     </dependency>
   </dependencies>
 
@@ -76,6 +82,11 @@ Además, tenemos que añadir los procesadores de anotaciones (lombok y mapstruct
               <artifactId>mapstruct-processor</artifactId>
               <version>${version.mapstruct-processor}</version>
             </path>
+            <path>
+              <groupId>org.hibernate.orm</groupId>
+              <artifactId>hibernate-jpamodelgen</artifactId>
+              <version>${version.hibernate-jpamodelgen}</version>
+            </path>
           </annotationProcessorPaths>
           <compilerArgs>
             <compilerArg>
@@ -97,6 +108,4 @@ Además, tenemos que añadir los procesadores de anotaciones (lombok y mapstruct
       </plugin>
     </plugins>
   </build>
-
-
 </project>
