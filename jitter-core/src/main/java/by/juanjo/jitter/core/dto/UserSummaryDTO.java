@@ -23,6 +23,11 @@ public @Data class UserSummaryDTO implements Serializable {
   }
 
   @JsonProperty(access = Access.READ_ONLY)
+  public Timestamp getVerifiedAt() {
+    return verifiedAt;
+  }
+
+  @JsonProperty(access = Access.READ_ONLY)
   public Timestamp getCreatedAt() {
     return this.createdAt;
   }
