@@ -8,7 +8,7 @@ import lombok.Data;
 public @Data class UserPreferenceDTO implements Serializable {
 
   private Long id;
-  private UserDetailsDTO user;
+  private UserSummaryDTO user;
   private Boolean darkMode = false;
   private Boolean telemetry = false;
 

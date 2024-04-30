@@ -10,7 +10,7 @@ import lombok.Data;
 public @Data class PostDTO implements Serializable {
 
   private Long id;
-  private UserDetailsDTO owner;
+  private UserSummaryDTO owner;
   private String body;
   private Timestamp createdAt;
   private Timestamp updatedAt;

@@ -10,7 +10,7 @@ import lombok.Data;
 public @Data class ReportDTO implements Serializable {
 
   private ReportId id;
-  private UserDetailsDTO user;
+  private UserSummaryDTO user;
   private PostSummaryDTO post;
   private Integer importance;
   private String details;
