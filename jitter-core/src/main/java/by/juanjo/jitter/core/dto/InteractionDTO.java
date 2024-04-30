@@ -9,7 +9,7 @@ import lombok.Data;
 public @Data class InteractionDTO implements Serializable {
 
   private InteractionIdDTO id;
-  private UserDetailsDTO user;
+  private UserSummaryDTO user;
   private PostSummaryDTO post;
   private Integer interactionType;
   private Timestamp createdAt;

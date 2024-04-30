@@ -10,7 +10,7 @@ import lombok.Data;
 public @Data class CommentDTO implements Serializable {
 
   private Long id;
-  private UserDetailsDTO owner;
+  private UserSummaryDTO owner;
   private PostSummaryDTO repliedPost;
   private String body;
   private Timestamp createdAt;

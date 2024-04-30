@@ -9,7 +9,7 @@ import lombok.Data;
 public @Data class UserPostShareDTO implements Serializable {
 
   private UserPostShareIdDTO id;
-  private UserDetailsDTO user;
+  private UserSummaryDTO user;
   private PostSummaryDTO post;
   private Timestamp createdAt;
 
