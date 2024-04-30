@@ -57,19 +57,38 @@
             </configuration>
           </execution>
           <execution>
-            <id>npm run-script build</id>
+            <id>webpack</id>
             <goals>
-              <goal>npm</goal>
+              <goal>webpack</goal>
             </goals>
-            <phase>generate-resources</phase>
-            <configuration>
-              <!-- arguments>run-script build</arguments-->
-            </configuration>
           </execution>
         </executions>
         <configuration>
           <nodeVersion>v20.12.2</nodeVersion>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy admin web interface prod files</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>
+                ${project.build.directory}/classes/META-INF/resources/webjars/react-gui
+              </outputDirectory>
+              <resources>
+                <resource>
+                  <directory>./target/generated-test-sources/compiled-js/</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

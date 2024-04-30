@@ -1,13 +1,13 @@
 let path = require('path');
 
 module.exports = {
-  entry: './src/main/js/app.js',
+  entry: './src/main/js/main.jsx',
   devtool: 'sourcemaps',
   cache: true,
   mode: 'development',
   output: {
     path: __dirname,
-    filename: './src/main/resources/static/built/bundle.js'
+    filename: './target/generated-test-sources/compiled-js/bundle.js'
   },
   module: {
     rules: [
