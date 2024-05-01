@@ -1,7 +1,13 @@
+'use strict'
+
+import {Navbar} from "../../components/Navbar/Navbar";
+import {Section} from "../../components/Section/Section";
+
 export function HomePage() {
   return (
       <div className={"homepage"}>
-        <h1>HELLO WORLD</h1>
+        <Navbar/>
+          <Section/>
       </div>
   );
 }
