@@ -21,6 +21,8 @@
     <version.flyway-core>9.2.3</version.flyway-core>
     <version.flyway-mysql>9.2.3</version.flyway-mysql>
     <version.flyway-maven-plugin>10.11.0</version.flyway-maven-plugin>
+    <version.spring-boot-starter-security>3.2.5</version.spring-boot-starter-security>
+    <version.jitter-react-webui>0.0.1</version.jitter-react-webui>
   </properties>
 
   <dependencies>
@@ -28,6 +30,11 @@
       <groupId>by.juanjo</groupId>
       <artifactId>jitter-core</artifactId>
       <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>by.juanjo</groupId>
+      <artifactId>jitter-react-webui</artifactId>
+      <version>${version.jitter-react-webui}</version>
     </dependency>
     <dependency>
       <groupId>org.flywaydb</groupId>
@@ -38,6 +45,11 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-mysql</artifactId>
       <version>${version.flyway-mysql}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <version>${version.spring-boot-starter-security}</version>
     </dependency>
   </dependencies>
 
