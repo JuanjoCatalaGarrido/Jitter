@@ -9,9 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface UserFollowerIdMapper {
 
-  public static UserFollowerIdMapper getInstance() {
-    return Mappers.getMapper(UserFollowerIdMapper.class);
-  }
+  UserFollowerIdMapper INSTANCE = Mappers.getMapper(UserFollowerIdMapper.class);
 
   public UserFollowerIdDTO toDTO(UserFollowerId entity);
 

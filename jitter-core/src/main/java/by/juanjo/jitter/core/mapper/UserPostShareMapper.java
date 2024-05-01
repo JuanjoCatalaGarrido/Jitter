@@ -11,9 +11,7 @@ import org.mapstruct.factory.Mappers;
     PostMapper.class})
 public interface UserPostShareMapper {
 
-  public static UserPostShareMapper getInstance() {
-    return Mappers.getMapper(UserPostShareMapper.class);
-  }
+  UserPostShareMapper INSTANCE = Mappers.getMapper(UserPostShareMapper.class);
 
   public UserPostShareDTO toDTO(UserPostShare entity);
 

@@ -11,9 +11,7 @@ import org.mapstruct.factory.Mappers;
     InteractionIdMapper.class})
 public interface InteractionMapper {
 
-  public static InteractionMapper getInstance() {
-    return Mappers.getMapper(InteractionMapper.class);
-  }
+  InteractionMapper INSTANCE = Mappers.getMapper(InteractionMapper.class);
 
   public InteractionDTO toDTO(Interaction entity);
 

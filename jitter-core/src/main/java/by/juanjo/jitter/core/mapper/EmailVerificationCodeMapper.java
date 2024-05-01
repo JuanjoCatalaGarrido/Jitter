@@ -10,9 +10,7 @@ import org.mapstruct.factory.Mappers;
     UserMapper.class})
 public interface EmailVerificationCodeMapper {
 
-  public static EmailVerificationCodeMapper getInstance() {
-    return Mappers.getMapper(EmailVerificationCodeMapper.class);
-  }
+  EmailVerificationCodeMapper INSTANCE = Mappers.getMapper(EmailVerificationCodeMapper.class);
 
   public EmailVerificationCodeDTO toDTO(EmailVerificationCode entity);
 

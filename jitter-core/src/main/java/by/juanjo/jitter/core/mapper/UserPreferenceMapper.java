@@ -10,9 +10,7 @@ import org.mapstruct.factory.Mappers;
     UserMapper.class})
 public interface UserPreferenceMapper {
 
-  public static UserPreferenceMapper getInstance() {
-    return Mappers.getMapper(UserPreferenceMapper.class);
-  }
+  UserPreferenceMapper INSTANCE = Mappers.getMapper(UserPreferenceMapper.class);
 
   public UserPreferenceDTO toDTO(UserPreference entity);
 
