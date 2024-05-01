@@ -82,7 +82,7 @@
               </outputDirectory>
               <resources>
                 <resource>
-                  <directory>./target/generated-test-sources/compiled-js/</directory>
+                  <directory>./target/generated-test-sources/bundled-src/</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>

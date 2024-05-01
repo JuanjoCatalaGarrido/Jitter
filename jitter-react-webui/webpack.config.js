@@ -6,16 +6,19 @@ module.exports = {
   cache: true,
   mode: 'development',
   output: {
-    path: __dirname,
-    filename: './target/generated-test-sources/compiled-js/bundle.js'
+    path: path.join(__dirname, '/target/generated-test-sources/bundled-src/'),
+    filename: 'bundle.js'
+  },
+  devServer: {
+    port: 3010,
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: path.join(__dirname, '.'),
+        test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
         use: [{
           loader: 'babel-loader',
@@ -23,6 +26,17 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"]
           }
         }]
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
       }
     ]
   }
