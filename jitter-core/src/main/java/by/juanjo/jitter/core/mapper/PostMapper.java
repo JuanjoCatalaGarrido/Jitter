@@ -14,9 +14,7 @@ import org.mapstruct.factory.Mappers;
     ReportMapper.class, InteractionMapper.class})
 public interface PostMapper {
 
-  public static PostMapper getInstance() {
-    return Mappers.getMapper(PostMapper.class);
-  }
+  PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 
   public PostDTO toPostDTO(Post entity);
 

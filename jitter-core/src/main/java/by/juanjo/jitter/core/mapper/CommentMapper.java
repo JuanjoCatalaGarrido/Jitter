@@ -10,9 +10,7 @@ import org.mapstruct.factory.Mappers;
     UserMapper.class, PostMapper.class})
 public interface CommentMapper {
 
-  public static CommentMapper getInstance() {
-    return Mappers.getMapper(CommentMapper.class);
-  }
+  CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
   public CommentDTO toDTO(Comment entity);
 

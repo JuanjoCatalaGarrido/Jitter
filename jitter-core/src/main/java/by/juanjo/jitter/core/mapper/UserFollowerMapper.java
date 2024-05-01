@@ -10,9 +10,7 @@ import org.mapstruct.factory.Mappers;
     UserFollowerIdMapper.class, UserMapper.class})
 public interface UserFollowerMapper {
 
-  public static UserFollowerMapper getInstance() {
-    return Mappers.getMapper(UserFollowerMapper.class);
-  }
+  UserFollowerMapper INSTANCE = Mappers.getMapper(UserFollowerMapper.class);
 
   public UserFollowerDTO toDTO(UserFollower entity);
 

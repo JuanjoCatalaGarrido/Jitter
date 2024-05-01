@@ -9,9 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface InteractionIdMapper {
 
-  public static InteractionIdMapper getInstance() {
-    return Mappers.getMapper(InteractionIdMapper.class);
-  }
+  InteractionIdMapper INSTANCE = Mappers.getMapper(InteractionIdMapper.class);
 
   public InteractionIdDTO toDTO(InteractionId entity);
 

@@ -10,9 +10,7 @@ import org.mapstruct.factory.Mappers;
     PostMapper.class})
 public interface TagMapper {
 
-  public static TagMapper getInstance() {
-    return Mappers.getMapper(TagMapper.class);
-  }
+  TagMapper INSTANCE = Mappers.getMapper(TagMapper.class);
 
   public TagDTO toDTO(Tag entity);
 

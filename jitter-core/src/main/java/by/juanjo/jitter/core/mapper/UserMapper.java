@@ -14,9 +14,7 @@ import org.mapstruct.factory.Mappers;
     UserPostShareMapper.class, ReportMapper.class, InteractionMapper.class})
 public interface UserMapper {
 
-  public static UserMapper getInstance() {
-    return Mappers.getMapper(UserMapper.class);
-  }
+  UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
   public UserDTO toUserDTO(User entity);
 
