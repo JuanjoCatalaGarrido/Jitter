@@ -2,10 +2,12 @@ package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.TagDTO;
 import by.juanjo.jitter.core.entity.Tag;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {PostMapper.class})
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {
+    PostMapper.class})
 public interface TagMapper {
 
   public static TagMapper getInstance() {
