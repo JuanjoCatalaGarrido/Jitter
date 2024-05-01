@@ -2,12 +2,15 @@ let path = require('path');
 
 module.exports = {
   entry: './src/main/main.jsx',
-  devtool: 'sourcemaps',
+  devtool: 'cheap-module-source-map', // or 'eval-source-map'
   cache: true,
   mode: 'development',
   output: {
     path: __dirname,
     filename: './target/generated-test-sources/compiled-js/bundle.js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
