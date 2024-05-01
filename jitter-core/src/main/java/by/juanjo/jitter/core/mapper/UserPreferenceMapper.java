@@ -2,10 +2,12 @@ package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.UserPreferenceDTO;
 import by.juanjo.jitter.core.entity.UserPreference;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = {UserMapper.class})
+@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {
+    UserMapper.class})
 public interface UserPreferenceMapper {
 
   public static UserPreferenceMapper getInstance() {
