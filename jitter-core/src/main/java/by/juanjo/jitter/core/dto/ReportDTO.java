@@ -10,7 +10,9 @@ import lombok.Data;
 public @Data class ReportDTO implements Serializable {
 
   private ReportId id;
+  @JsonProperty(access = Access.READ_ONLY)
   private UserSummaryDTO user;
+  @JsonProperty(access = Access.READ_ONLY)
   private PostSummaryDTO post;
   private Integer importance;
   private String details;

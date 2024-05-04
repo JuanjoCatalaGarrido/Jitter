@@ -12,6 +12,7 @@ public @Data class TagDTO implements Serializable {
   private Long id;
   private String name;
   private Timestamp createdAt;
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<PostSummaryDTO> associatedPosts;
 
   @JsonProperty(access = Access.READ_ONLY)

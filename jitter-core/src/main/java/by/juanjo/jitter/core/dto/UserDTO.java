@@ -16,14 +16,31 @@ public @Data class UserDTO implements Serializable {
   private Timestamp createdAt;
   private Timestamp updatedAt;
 
+  @JsonProperty(access = Access.READ_ONLY)
   private UserPreference userPreferences;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<CommentDTO> userComments;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<PostSummaryDTO> userPosts;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<UserFollowerDTO> followers;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<UserFollowerDTO> follows;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<EmailVerificationCodeDTO> verificationCodes;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<UserPostShareDTO> postShares;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<ReportDTO> reports;
+
+  @JsonProperty(access = Access.READ_ONLY)
   private Set<InteractionDTO> interactions;
 
   @JsonProperty(access = Access.READ_ONLY)
@@ -40,6 +57,5 @@ public @Data class UserDTO implements Serializable {
   public Timestamp getUpdatedAt() {
     return this.updatedAt;
   }
-
 
 }

@@ -9,7 +9,9 @@ import lombok.Data;
 public @Data class UserPostShareDTO implements Serializable {
 
   private UserPostShareIdDTO id;
+  @JsonProperty(access = Access.READ_ONLY)
   private UserSummaryDTO user;
+  @JsonProperty(access = Access.READ_ONLY)
   private PostSummaryDTO post;
   private Timestamp createdAt;
 
