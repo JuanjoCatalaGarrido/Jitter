@@ -2,11 +2,10 @@ package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.EmailVerificationCodeDTO;
 import by.juanjo.jitter.core.entity.EmailVerificationCode;
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {
+@Mapper(componentModel = "spring", uses = {
     UserMapper.class})
 public interface EmailVerificationCodeMapper {
 
