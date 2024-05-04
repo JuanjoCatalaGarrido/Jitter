@@ -2,11 +2,11 @@ package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.InteractionDTO;
 import by.juanjo.jitter.core.entity.Interaction;
-import org.mapstruct.InjectionStrategy;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {
+@Mapper(componentModel = "spring", uses = {
     UserMapper.class, PostMapper.class,
     InteractionIdMapper.class})
 public interface InteractionMapper {

@@ -4,11 +4,10 @@ import by.juanjo.jitter.core.dto.UserDTO;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.entity.User;
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, uses = {
+@Mapper(componentModel = "spring", uses = {
     UserPreferenceMapper.class, CommentMapper.class,
     PostMapper.class, UserFollowerMapper.class, EmailVerificationCodeMapper.class,
     UserPostShareMapper.class, ReportMapper.class, InteractionMapper.class})
