@@ -10,7 +10,6 @@ import lombok.Data;
 public @Data class PostSummaryDTO implements Serializable {
 
   private Long id;
-  @JsonProperty(access = Access.READ_ONLY)
   private UserSummaryDTO owner;
   private String body;
   private Timestamp createdAt;
