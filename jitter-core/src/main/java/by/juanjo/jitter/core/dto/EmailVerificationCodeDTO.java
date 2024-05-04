@@ -9,7 +9,8 @@ import lombok.Data;
 public @Data class EmailVerificationCodeDTO implements Serializable {
 
   private Long id;
-  private UserDetailsDTO user;
+  @JsonProperty(access = Access.READ_ONLY)
+  private UserSummaryDTO user;
   private Integer code;
   private Timestamp createdAt;
 
