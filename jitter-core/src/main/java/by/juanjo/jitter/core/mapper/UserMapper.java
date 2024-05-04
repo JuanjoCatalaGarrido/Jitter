@@ -14,14 +14,11 @@ public interface UserMapper {
 
   UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-  public UserDTO toUserDTO(User entity);
 
   public UserSummaryDTO toUserSummaryDTO(User entity);
 
   public UserDetailsDTO toUserDetailsDTO(User entity);
-
-  public User toEntity(UserDTO dto);
-
+  
   public User toEntity(UserSummaryDTO dto);
 
   public User toEntity(UserDetailsDTO dto);
