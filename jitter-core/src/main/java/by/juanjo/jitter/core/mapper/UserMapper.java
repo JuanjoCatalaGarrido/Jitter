@@ -1,6 +1,5 @@
 package by.juanjo.jitter.core.mapper;
 
-import by.juanjo.jitter.core.dto.UserDTO;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.entity.User;

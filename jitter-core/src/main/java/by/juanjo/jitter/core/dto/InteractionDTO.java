@@ -9,9 +9,7 @@ import lombok.Data;
 public @Data class InteractionDTO implements Serializable {
 
   private InteractionIdDTO id;
-  @JsonProperty(access = Access.READ_ONLY)
   private UserSummaryDTO user;
-  @JsonProperty(access = Access.READ_ONLY)
   private PostSummaryDTO post;
   private Integer interactionType;
   private Timestamp createdAt;
