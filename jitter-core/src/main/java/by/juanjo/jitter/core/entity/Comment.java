@@ -16,11 +16,13 @@ public @Data class Comment implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "user_id", nullable = false)
   private User owner;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "post_id", nullable = false)
   private Post repliedPost;
 

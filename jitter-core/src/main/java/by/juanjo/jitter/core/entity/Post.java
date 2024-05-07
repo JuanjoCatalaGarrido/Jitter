@@ -17,7 +17,8 @@ public @Data class Post implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "user_id", nullable = false)
   private User owner;
 
@@ -32,20 +33,26 @@ public @Data class Post implements Serializable {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToMany(mappedBy = "repliedPost", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "repliedPost", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+      CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Comment> userComments;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinTable(name = "post_tag", joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
   private Set<Tag> tags;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserPostShare> usersWhoShared;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Report> reports;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Interaction> interactions;
 
 

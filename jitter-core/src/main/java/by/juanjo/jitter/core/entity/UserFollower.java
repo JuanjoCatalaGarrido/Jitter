@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -20,12 +21,12 @@ public @Data class UserFollower implements Serializable {
   @EmbeddedId
   private UserFollowerId id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
   @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
   @MapsId("userId")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "follower_id", nullable = false, insertable = false, updatable = false)
   @MapsId("followerId")
   private User follower;
