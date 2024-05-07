@@ -52,22 +52,22 @@ public @Data class User implements Serializable {
   @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
   private Set<Post> userPosts;
 
-  @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "follower")
   private Set<UserFollower> followers;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user")
   private Set<UserFollower> follows;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user")
   private Set<EmailVerificationCode> verificationCodes;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user")
   private Set<UserPostShare> postShares;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user")
   private Set<Report> reports;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user")
   private Set<Interaction> interactions;
 
 }

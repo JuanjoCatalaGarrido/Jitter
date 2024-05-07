@@ -17,7 +17,7 @@ public @Data class Post implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User owner;
 
@@ -35,18 +35,18 @@ public @Data class Post implements Serializable {
   @OneToMany(mappedBy = "repliedPost", fetch = FetchType.LAZY)
   private Set<Comment> userComments;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "post_tag", joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
   private Set<Tag> tags;
 
-  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "post")
   private Set<UserPostShare> usersWhoShared;
 
-  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "post")
   private Set<Report> reports;
 
-  @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "post")
   private Set<Interaction> interactions;
-  
+
 
 }
