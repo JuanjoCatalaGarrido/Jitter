@@ -1,6 +1,7 @@
 package by.juanjo.jitter.core.entity;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -20,12 +21,14 @@ public class UserPostShare implements Serializable {
   @EmbeddedId
   private UserPostShareId id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
   @MapsId("userId")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "post_id", nullable = false)
   @MapsId("postId")
   private Post post;

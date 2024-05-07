@@ -42,32 +42,43 @@ public @Data class User implements Serializable {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   @PrimaryKeyJoinColumn
   private UserPreference userPreferences;
 
-  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+      CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Comment> userComments;
 
-  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+      CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Post> userPosts;
 
-  @OneToMany(mappedBy = "follower")
+  @OneToMany(mappedBy = "follower", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserFollower> followers;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserFollower> follows;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<EmailVerificationCode> verificationCodes;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserPostShare> postShares;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Report> reports;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Interaction> interactions;
 
 }

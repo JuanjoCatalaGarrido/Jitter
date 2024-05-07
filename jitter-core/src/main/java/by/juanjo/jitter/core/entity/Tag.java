@@ -22,7 +22,9 @@ public @Data class Tag implements Serializable {
   @CreationTimestamp
   private Timestamp createdAt;
 
-  @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+      CascadeType.MERGE,
+      CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Post> associatedPosts;
 
 
