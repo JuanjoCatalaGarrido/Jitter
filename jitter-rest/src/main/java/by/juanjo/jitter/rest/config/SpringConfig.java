@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EntityScan("by.juanjo.jitter.core.entity")
 @ComponentScan("by.juanjo.jitter.core.mapper")
-@EnableJpaRepositories(basePackages = { "by.juanjo.jitter.core.repository" })
+@EnableJpaRepositories(basePackages = {"by.juanjo.jitter.core.repository"})
 public class SpringConfig {
+
 }
