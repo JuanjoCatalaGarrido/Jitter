@@ -17,11 +17,11 @@
   <description>Un servicio de microblogueo basado en Java</description>
   <modules>
     <module>jitter-core</module>
+    <module>jitter-react-webui</module>
     <module>jitter-rest</module>
+    <module>jitter-react-webui</module>
   </modules>
-  <properties>
-    <java.version>21</java.version>
-  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -40,6 +40,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>
@@ -99,5 +103,9 @@
       </resource>
     </resources>
   </build>
+
+  <properties>
+    <java.version>21</java.version>
+  </properties>
 
 </project>
