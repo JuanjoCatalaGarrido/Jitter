@@ -12,7 +12,7 @@ public interface UserPreferenceRepository extends JpaRepository<UserPreference, 
 
   public List<UserPreference> findByUserId(Long id);
 
-  public List<UserPreference> findByDarkModeEnabled();
+  public List<UserPreference> findByDarkMode(boolean enabled);
 
-  public List<UserPreference> findByTelementryEnabled();
+  public List<UserPreference> findByTelemetry(boolean enabled);
 }
