@@ -33,7 +33,7 @@ public @Data class Post implements Serializable {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToMany(mappedBy = "repliedPost", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+  @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
       CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Comment> userComments;
