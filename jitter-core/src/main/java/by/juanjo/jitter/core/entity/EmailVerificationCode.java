@@ -28,7 +28,7 @@ public @Data class EmailVerificationCode implements Serializable {
   private User user;
 
   @Column(columnDefinition = "TINYINT", nullable = false)
-  private int code;
+  private Integer code;
 
   @Column(name = "created_at", nullable = false, updatable = false)
   @CreationTimestamp

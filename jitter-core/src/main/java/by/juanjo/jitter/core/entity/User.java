@@ -46,17 +46,7 @@ public @Data class User implements Serializable {
       CascadeType.REFRESH, CascadeType.DETACH})
   @PrimaryKeyJoinColumn
   private UserPreference userPreferences;
-
-  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
-      CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
-  private Set<Comment> userComments;
-
-  @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
-      CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
-  private Set<Post> userPosts;
-
+  
   @OneToMany(mappedBy = "follower", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserFollower> followers;

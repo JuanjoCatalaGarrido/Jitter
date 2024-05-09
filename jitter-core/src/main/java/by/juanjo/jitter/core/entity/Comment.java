@@ -24,7 +24,7 @@ public @Data class Comment implements Serializable {
   @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "post_id", nullable = false)
-  private Post repliedPost;
+  private Post post;
 
   @Column(length = 200, nullable = false)
   private String body;
