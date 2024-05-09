@@ -14,6 +14,6 @@ public interface UserFollowerRepository extends
 
   public List<UserFollower> findByUserId(Long id);
 
-  public List<UserFollower> findByFollower(Long id);
+  public List<UserFollower> findByFollowerId(Long id);
 
 }
