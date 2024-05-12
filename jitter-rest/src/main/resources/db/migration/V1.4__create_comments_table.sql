@@ -21,5 +21,7 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`comments`
         FOREIGN KEY (`post_id`)
             REFERENCES `Jitter`.`posts` (`id`)
             ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `unique_user_post_interaction`
+        UNIQUE (`user_id`, `post_id`)
 ) ENGINE = InnoDB;
