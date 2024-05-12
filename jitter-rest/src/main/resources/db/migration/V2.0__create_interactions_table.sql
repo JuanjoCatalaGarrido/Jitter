@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`interactions`
     PRIMARY KEY (`users_user_id`, `posts_post_id`),
     CONSTRAINT `fk_users_has_posts_users3`
         FOREIGN KEY (`users_user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_users_has_posts_posts3`
         FOREIGN KEY (`posts_post_id`)
-            REFERENCES `Litter`.`posts` (`id`)
+            REFERENCES `Jitter`.`posts` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 )

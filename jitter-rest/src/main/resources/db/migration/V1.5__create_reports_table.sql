@@ -16,12 +16,12 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`reports`
     UNIQUE INDEX `unique_user_post` (`user_id`, `post_id`),
     CONSTRAINT `fk_users_has_posts_users2`
         FOREIGN KEY (`user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_users_has_posts_posts2`
         FOREIGN KEY (`post_id`)
-            REFERENCES `Litter`.`posts` (`id`)
+            REFERENCES `Jitter`.`posts` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;

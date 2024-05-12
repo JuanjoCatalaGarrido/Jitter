@@ -11,12 +11,12 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`user_follower`
     INDEX `fk_users_has_users_users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_users_has_users_users1`
         FOREIGN KEY (`user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_users_has_users_users2`
         FOREIGN KEY (`follower_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;

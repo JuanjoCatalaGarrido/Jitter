@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`user_preferences`
     INDEX `fk_preferences_users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_preferences_users1`
         FOREIGN KEY (`user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;

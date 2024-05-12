@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`comments`
     INDEX `fk_comments_posts1_idx` (`post_id` ASC) VISIBLE,
     CONSTRAINT `fk_comments_users1`
         FOREIGN KEY (`user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_comments_posts1`
         FOREIGN KEY (`post_id`)
-            REFERENCES `Litter`.`posts` (`id`)
+            REFERENCES `Jitter`.`posts` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;

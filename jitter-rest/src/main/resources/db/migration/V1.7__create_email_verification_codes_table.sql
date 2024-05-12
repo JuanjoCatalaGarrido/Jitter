@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`email_verification_codes`
     INDEX `fk_notifications_users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_notifications_users1`
         FOREIGN KEY (`user_id`)
-            REFERENCES `Litter`.`users` (`id`)
+            REFERENCES `Jitter`.`users` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;

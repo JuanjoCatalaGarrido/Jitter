@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`post_tag`
     INDEX `fk_posts_has_Tag_posts1_idx` (`post_id` ASC) VISIBLE,
     CONSTRAINT `fk_posts_has_Tag_posts1`
         FOREIGN KEY (`post_id`)
-            REFERENCES `Litter`.`posts` (`id`)
+            REFERENCES `Jitter`.`posts` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION,
     CONSTRAINT `fk_posts_has_Tag_Tag1`
         FOREIGN KEY (`tag_id`)
-            REFERENCES `Litter`.`tags` (`id`)
+            REFERENCES `Jitter`.`tags` (`id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 )
