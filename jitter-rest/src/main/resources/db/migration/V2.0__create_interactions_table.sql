@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS `Jitter`.`interactions`;
 
 CREATE TABLE IF NOT EXISTS `Jitter`.`interactions`
 (
-    `users_user_id`    INT UNSIGNED      NOT NULL,
-    `posts_post_id`    INT UNSIGNED      NOT NULL,
+    `users_user_id`    BIGINT UNSIGNED   NOT NULL,
+    `posts_post_id`    BIGINT UNSIGNED   NOT NULL,
     `interaction_type` SMALLINT UNSIGNED NOT NULL,
     `created_at`       TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS `Jitter`.`email_verification_codes`;
 
 CREATE TABLE IF NOT EXISTS `Jitter`.`email_verification_codes`
 (
-    `id`         INT UNSIGNED      NOT NULL AUTO_INCREMENT,
-    `user_id`    INT UNSIGNED      NOT NULL,
+    `id`         BIGINT UNSIGNED      NOT NULL AUTO_INCREMENT,
+    `user_id`    BIGINT UNSIGNED      NOT NULL,
     `code`       SMALLINT UNSIGNED NOT NULL,
     `created_at` DATETIME          NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
