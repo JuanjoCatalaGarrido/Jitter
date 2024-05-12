@@ -2,9 +2,9 @@ DROP TABLE IF EXISTS `Litter`.`reports`;
 
 CREATE TABLE IF NOT EXISTS `Litter`.`reports`
 (
-    `id`         INT UNSIGNED     NOT NULL AUTO_INCREMENT,
-    `user_id`    INT UNSIGNED     NOT NULL,
-    `post_id`    INT UNSIGNED     NOT NULL,
+    `id`         BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    `user_id`    BIGINT UNSIGNED  NOT NULL,
+    `post_id`    BIGINT UNSIGNED  NOT NULL,
     `importance` TINYINT UNSIGNED NOT NULL DEFAULT 0,
     `details`    VARCHAR(400)     NOT NULL,
     `created_at` TIMESTAMP        NULL     DEFAULT CURRENT_TIMESTAMP,

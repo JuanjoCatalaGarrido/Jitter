@@ -2,9 +2,9 @@ DROP TABLE IF EXISTS `Litter`.`user_follower`;
 
 CREATE TABLE IF NOT EXISTS `Litter`.`user_follower`
 (
-    `user_id`     INT UNSIGNED NOT NULL,
-    `follower_id` INT UNSIGNED NOT NULL,
-    `created_at`  TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP,
+    `user_id`     BIGINT UNSIGNED NOT NULL,
+    `follower_id` BIGINT UNSIGNED NOT NULL,
+    `created_at`  TIMESTAMP       NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`user_id`, `follower_id`),
     INDEX `fk_users_has_users_users2_idx` (`follower_id` ASC) VISIBLE,
