@@ -7,8 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {
-    UserMapper.class, PostMapper.class,
-    InteractionIdMapper.class})
+    UserMapper.class, PostMapper.class})
 public interface InteractionMapper {
 
   InteractionMapper INSTANCE = Mappers.getMapper(InteractionMapper.class);

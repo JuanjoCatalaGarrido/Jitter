@@ -6,8 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {
-    ReportIdMapper.class, UserMapper.class,
-    PostMapper.class})
+    UserMapper.class, PostMapper.class})
 public interface ReportMapper {
 
   ReportMapper INSTANCE = Mappers.getMapper(ReportMapper.class);
