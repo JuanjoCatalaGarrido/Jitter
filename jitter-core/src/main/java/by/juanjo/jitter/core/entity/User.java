@@ -18,13 +18,13 @@ public @Data class User implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(length = 45, nullable = false)
+  @Column(length = 45, nullable = false, unique = true)
   private String username;
 
   @Column(length = 100, nullable = false)
   private String password;
 
-  @Column(length = 45, nullable = false)
+  @Column(length = 45, nullable = false, unique = true)
   private String email;
 
   @Column(name = "profile_image_url", length = 100, nullable = false)
@@ -46,7 +46,7 @@ public @Data class User implements Serializable {
       CascadeType.REFRESH, CascadeType.DETACH})
   @PrimaryKeyJoinColumn
   private UserPreference userPreferences;
-  
+
   @OneToMany(mappedBy = "follower", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   private Set<UserFollower> followers;

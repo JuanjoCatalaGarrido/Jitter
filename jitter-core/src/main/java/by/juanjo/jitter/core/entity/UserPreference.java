@@ -25,7 +25,7 @@ public @Data class UserPreference implements Serializable {
   private Long id;
 
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "user_id", nullable = false, unique = true)
   @MapsId
   private User user;
 

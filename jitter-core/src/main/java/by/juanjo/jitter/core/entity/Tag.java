@@ -15,7 +15,7 @@ public @Data class Tag implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(length = 20, nullable = false)
+  @Column(length = 20, nullable = false, unique = true)
   private String name;
 
   @Column(name = "created_at", nullable = false, updatable = false)
