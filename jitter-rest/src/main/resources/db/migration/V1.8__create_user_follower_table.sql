@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`user_follower`;
+DROP TABLE IF EXISTS `Jitter`.`user_follower`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`user_follower`
+CREATE TABLE IF NOT EXISTS `Jitter`.`user_follower`
 (
     `user_id`     BIGINT UNSIGNED NOT NULL,
     `follower_id` BIGINT UNSIGNED NOT NULL,

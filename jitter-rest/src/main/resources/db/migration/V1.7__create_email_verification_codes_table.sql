@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`email_verification_codes`;
+DROP TABLE IF EXISTS `Jitter`.`email_verification_codes`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`email_verification_codes`
+CREATE TABLE IF NOT EXISTS `Jitter`.`email_verification_codes`
 (
     `id`         INT UNSIGNED      NOT NULL AUTO_INCREMENT,
     `user_id`    INT UNSIGNED      NOT NULL,

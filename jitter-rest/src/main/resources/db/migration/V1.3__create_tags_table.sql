@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`tags`;
+DROP TABLE IF EXISTS `Jitter`.`tags`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`tags`
+CREATE TABLE IF NOT EXISTS `Jitter`.`tags`
 (
     `id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `tag_name`   VARCHAR(20)     NOT NULL,

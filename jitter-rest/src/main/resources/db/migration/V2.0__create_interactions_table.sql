@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`interactions`;
+DROP TABLE IF EXISTS `Jitter`.`interactions`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`interactions`
+CREATE TABLE IF NOT EXISTS `Jitter`.`interactions`
 (
     `users_user_id`    INT UNSIGNED      NOT NULL,
     `posts_post_id`    INT UNSIGNED      NOT NULL,

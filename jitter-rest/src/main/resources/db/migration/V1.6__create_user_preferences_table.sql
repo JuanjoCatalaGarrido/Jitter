@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`user_preferences`;
+DROP TABLE IF EXISTS `Jitter`.`user_preferences`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`user_preferences`
+CREATE TABLE IF NOT EXISTS `Jitter`.`user_preferences`
 (
     `user_id`   BIGINT UNSIGNED  NOT NULL,
     `dark_mode` TINYINT UNSIGNED NOT NULL DEFAULT 0,

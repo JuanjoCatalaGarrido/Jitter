@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`post_tag`;
+DROP TABLE IF EXISTS `Jitter`.`post_tag`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`post_tag`
+CREATE TABLE IF NOT EXISTS `Jitter`.`post_tag`
 (
     `post_id` BIGINT UNSIGNED NOT NULL,
     `tag_id`  BIGINT UNSIGNED NOT NULL,

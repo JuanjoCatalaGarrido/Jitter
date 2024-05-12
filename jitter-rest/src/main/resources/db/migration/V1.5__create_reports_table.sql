@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `Litter`.`reports`;
+DROP TABLE IF EXISTS `Jitter`.`reports`;
 
-CREATE TABLE IF NOT EXISTS `Litter`.`reports`
+CREATE TABLE IF NOT EXISTS `Jitter`.`reports`
 (
     `id`         BIGINT UNSIGNED  NOT NULL AUTO_INCREMENT,
     `user_id`    BIGINT UNSIGNED  NOT NULL,
