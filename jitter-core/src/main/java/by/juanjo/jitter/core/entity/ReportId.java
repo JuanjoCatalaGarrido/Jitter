@@ -6,12 +6,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Embeddable
-public @Data class UserFollowerId implements Serializable {
+public @Data class ReportId implements Serializable {
 
   @Column(name = "user_id", nullable = false)
   private Long userId;
 
-  @Column(name = "follower_id", nullable = false)
-  private Long followerId;
+  @Column(name = "post_id", nullable = false)
+  private Long postId;
 
 }
