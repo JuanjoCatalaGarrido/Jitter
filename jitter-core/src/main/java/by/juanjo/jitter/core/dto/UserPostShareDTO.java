@@ -8,13 +8,13 @@ import lombok.Data;
 
 public @Data class UserPostShareDTO implements Serializable {
 
-  private Long id;
+  private UserPostShareIdDTO id;
   private UserSummaryDTO user;
   private PostSummaryDTO post;
   private Timestamp createdAt;
 
   @JsonProperty(access = Access.READ_ONLY)
-  public Long getId() {
+  public UserPostShareIdDTO getId() {
     return this.id;
   }
 
