@@ -8,14 +8,14 @@ import lombok.Data;
 
 public @Data class InteractionDTO implements Serializable {
 
-  private Long id;
+  private InteractionIdDTO id;
   private UserSummaryDTO user;
   private PostSummaryDTO post;
   private Integer interactionType;
   private Timestamp createdAt;
 
   @JsonProperty(access = Access.READ_ONLY)
-  public Long getId() {
+  public InteractionIdDTO getId() {
     return this.id;
   }
 
