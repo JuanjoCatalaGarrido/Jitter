@@ -8,11 +8,11 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`tags`
 
     PRIMARY KEY (`id`),
     UNIQUE INDEX `tag_id_UNIQUE` (`id` ASC) VISIBLE,
-    UNIQUE INDEX `tag_name_UNIQUE` (`tag_name` ASC) VISIBLE
+    UNIQUE INDEX `tag_name_UNIQUE` (`name` ASC) VISIBLE
 ) ENGINE = InnoDB;
 
 
-INSERT INTO `Jitter`.`tags` (`tag_name`)
+INSERT INTO `Jitter`.`tags` (`name`)
 VALUES ('FelizLunes'),
        ('IA'),
        ('Rock'),
