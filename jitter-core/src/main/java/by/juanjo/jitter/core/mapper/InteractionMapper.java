@@ -1,6 +1,7 @@
 package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.InteractionDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalInteractionDTO;
 import by.juanjo.jitter.core.entity.Interaction;
 
 import org.mapstruct.Mapper;
@@ -14,5 +15,9 @@ public interface InteractionMapper {
 
   public InteractionDTO toDTO(Interaction entity);
 
+  public MinimalInteractionDTO toMinimalInteractionDTO(Interaction entity);
+
   public Interaction toEntity(InteractionDTO dto);
+
+  public Interaction toEntity(MinimalInteractionDTO dto);
 }

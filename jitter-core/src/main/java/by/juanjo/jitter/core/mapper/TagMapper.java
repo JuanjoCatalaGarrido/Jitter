@@ -1,6 +1,7 @@
 package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.TagDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalTagDTO;
 import by.juanjo.jitter.core.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -13,6 +14,10 @@ public interface TagMapper {
 
   public TagDTO toDTO(Tag entity);
 
+  public MinimalTagDTO toMinimalTagDTO(Tag entity);
+
   public Tag toEntity(TagDTO dto);
+
+  public Tag toEntity(MinimalTagDTO dto);
 
 }
