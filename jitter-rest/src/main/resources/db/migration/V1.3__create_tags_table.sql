@@ -10,3 +10,43 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`tags`
     UNIQUE INDEX `tag_id_UNIQUE` (`id` ASC) VISIBLE,
     UNIQUE INDEX `tag_name_UNIQUE` (`tag_name` ASC) VISIBLE
 ) ENGINE = InnoDB;
+
+
+INSERT INTO `Jitter`.`tags` (`tag_name`)
+VALUES
+    ('FelizLunes'),
+    ('IA'),
+    ('Rock'),
+    ('Asado'),
+    ('CienciaFicción'),
+    ('Yoga'),
+    ('CorrerEsVida'),
+    ('Vegana'),
+    ('Tren'),
+    ('Recetas'),
+    ('Fotografía'),
+    ('ProductosLocales'),
+    ('ViajeAJapón'),
+    ('TrabajoDuro'),
+    ('AdoptaNoCompres'),
+    ('NocheDeJuegos'),
+    ('AmorEterno'),
+    ('SeriesTV'),
+    ('VidaActiva'),
+    ('Sushi'),
+    ('Relax'),
+    ('Familia'),
+    ('Pereza'),
+    ('Emprendimiento'),
+    ('Educación'),
+    ('Fitness'),
+    ('Música'),
+    ('Solidaridad'),
+    ('TiempoDeLluvia'),
+    ('Naturaleza'),
+    ('Vacaciones'),
+    ('Café'),
+    ('Productividad'),
+    ('Domingo'),
+    ('Cartas'),
+    ('Picnic');

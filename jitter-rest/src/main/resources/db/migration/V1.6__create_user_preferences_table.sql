@@ -14,3 +14,21 @@ CREATE TABLE IF NOT EXISTS `Jitter`.`user_preferences`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+
+INSERT INTO `Jitter`.`user_preferences` (`user_id`, `dark_mode`, `telemetry`)
+VALUES (1, 1, 0),
+       (2, 0, 1),
+       (3, 1, 1),
+       (4, 0, 0),
+       (5, 1, 1),
+       (6, 0, 0),
+       (7, 1, 1),
+       (8, 0, 0),
+       (9, 1, 0),
+       (10, 0, 1),
+       (11, 1, 1),
+       (12, 0, 0),
+       (13, 1, 0),
+       (14, 0, 1),
+       (15, 1, 0);
