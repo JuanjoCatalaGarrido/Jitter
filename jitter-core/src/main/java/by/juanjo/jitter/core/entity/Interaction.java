@@ -17,7 +17,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "user_post_interaction",
+@Table(name = "interactions",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
 public @Data class Interaction implements Serializable {
 
@@ -25,11 +25,11 @@ public @Data class Interaction implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name = "post_id", nullable = false, insertable = false, updatable = false)
   private Post post;
 

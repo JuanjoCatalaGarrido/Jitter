@@ -2,6 +2,7 @@ package by.juanjo.jitter.core.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,7 +28,7 @@ public @Data class User implements Serializable {
   @Column(length = 45, nullable = false, unique = true)
   private String email;
 
-  @Column(name = "profile_image_url", length = 100, nullable = false)
+  @Column(name = "profile_img_url", length = 100, nullable = false)
   private String profileImgUrl;
 
   @Column(name = "verified_at", nullable = true)
@@ -45,30 +46,37 @@ public @Data class User implements Serializable {
   @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   @PrimaryKeyJoinColumn
+  @EqualsAndHashCode.Exclude
   private UserPreference userPreferences;
 
   @OneToMany(mappedBy = "follower", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<UserFollower> followers;
 
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<UserFollower> follows;
 
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<EmailVerificationCode> verificationCodes;
 
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<UserPostShare> postShares;
 
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<Report> reports;
 
   @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
+  @EqualsAndHashCode.Exclude
   private Set<Interaction> interactions;
 
 }

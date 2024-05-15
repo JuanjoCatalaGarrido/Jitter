@@ -18,7 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "user_post_report",
+@Table(name = "reports",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
 public class Report implements Serializable {
 
@@ -26,12 +26,12 @@ public class Report implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
       CascadeType.REFRESH, CascadeType.DETACH})
   @JoinColumn(name = "post_id", nullable = false)
   private Post post;

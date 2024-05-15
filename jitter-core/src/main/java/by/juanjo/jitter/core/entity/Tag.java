@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
-@Entity
+@Entity(name = "tags")
 public @Data class Tag implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(length = 20, nullable = false, unique = true)
+  @Column(name = "name", length = 20, nullable = false, unique = true)
   private String name;
 
   @Column(name = "created_at", nullable = false, updatable = false)
