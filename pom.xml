@@ -19,7 +19,6 @@
     <module>jitter-core</module>
     <module>jitter-react-webui</module>
     <module>jitter-rest</module>
-    <module>jitter-react-webui</module>
   </modules>
 
   <dependencies>
