@@ -14,13 +14,14 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "reports",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
-public class Report implements Serializable {
+public @Data class Report implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,7 @@ public class Report implements Serializable {
   private Post post;
 
   @Column(columnDefinition = "TINYINT", nullable = false)
-  private Integer importance;
+  private Byte importance;
 
   @Column(length = 400, nullable = false)
   private String details;

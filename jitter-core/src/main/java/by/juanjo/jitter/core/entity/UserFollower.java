@@ -23,12 +23,12 @@ public @Data class UserFollower implements Serializable {
   @EmbeddedId
   private UserFollowerId id;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
   @MapsId("userId")
   private User user;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "follower_id", nullable = false, insertable = false, updatable = false)
   @MapsId("followerId")
   private User follower;

@@ -3,6 +3,7 @@ package by.juanjo.jitter.core.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -43,40 +44,40 @@ public @Data class User implements Serializable {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
-  @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private UserPreference userPreferences;
 
-  @OneToMany(mappedBy = "follower", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<UserFollower> followers;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<UserFollower> follows;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<EmailVerificationCode> verificationCodes;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<UserPostShare> postShares;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<Report> reports;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<Interaction> interactions;
 
 }

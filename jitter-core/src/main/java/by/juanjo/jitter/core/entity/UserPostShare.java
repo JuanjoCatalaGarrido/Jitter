@@ -13,12 +13,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "user_post_share",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "post_id"})})
-public class UserPostShare implements Serializable {
+public @Data class UserPostShare implements Serializable {
 
   @EmbeddedId
   private UserPostShareId id;

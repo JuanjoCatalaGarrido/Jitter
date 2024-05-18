@@ -21,8 +21,7 @@ public @Data class Comment implements Serializable {
   @JoinColumn(name = "user_id", nullable = false)
   private User owner;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-      CascadeType.REFRESH, CascadeType.DETACH})
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "post_id", nullable = false)
   private Post post;
 
