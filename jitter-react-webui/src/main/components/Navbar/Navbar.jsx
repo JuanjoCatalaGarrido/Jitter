@@ -10,11 +10,11 @@ export function Navbar(){
                 <img src={""} alt={"Jitter Icon"}/>
             </div>
             <div className={"nav-menu-container"}>
-                <NavbarItem className={"terms-of-services"}>Términos de servicio</NavbarItem>
-                <NavbarItem className={"about-us"}>Sobre nosotros</NavbarItem>
+                <NavbarItem className={"terms-of-services"} href={"/tos"}>Términos de servicio</NavbarItem>
+                <NavbarItem className={"about-us"} href={"/about-us"}>Sobre nosotros</NavbarItem>
                 <span className={"menu-separator"}>|</span>
-                <NavbarItem className={"login-Button"}>Inicio Sesión</NavbarItem>
-                <Button href={""}>Regístrate</Button>
+                <NavbarItem className={"login-button"} href={"/login"}>Inicio Sesión</NavbarItem>
+                <Button href={"/register"}>Regístrate</Button>
             </div>
         </nav>
     );
