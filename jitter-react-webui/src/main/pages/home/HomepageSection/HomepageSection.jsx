@@ -1,13 +1,13 @@
 'use strict'
-import './section.scss';
-import {Button} from "../Button/Button";
+import './homepageSection.scss';
+import {Button} from "../../../components/Button/Button";
 
-export function Section(){
+export function HomepageSection(){
     return (
-        <section>
+        <section className={"homepage-section"}>
             <main>
                 <div className={"section-call-to-action-container"}>
-                    <h1 className={"title"}>Expresarse es condición necesaria del ser humano</h1>
+                    <h1 className={"title"}>Expresarse es condición del ser humano</h1>
                     <h6 className={"subtitle"}>Exprésate, sé tu mismo y defiende tu libertad de expresión</h6>
                     <Button>Comienza a hablar</Button>
                 </div>
