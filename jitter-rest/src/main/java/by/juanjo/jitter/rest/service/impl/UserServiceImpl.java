@@ -4,7 +4,7 @@ import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.core.repository.UserRepository;
 import by.juanjo.jitter.rest.service.UserService;
 import by.juanjo.jitter.rest.service.generic.ServiceBase;
-import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ public class UserServiceImpl extends ServiceBase<User, Long, UserRepository> imp
     super(repository);
   }
 
-  public List<User> findByUsername(String username) {
-    return this.getRepository().findByUsername(username);
+  public Optional<User> findByUsername(String username) {
+    return this.getRepository().findOneByUsername(username);
   }
 
-  public List<User> findByEmail(String email) {
-    return this.getRepository().findByEmail(email);
+  public Optional<User> findByEmail(String email) {
+    return this.getRepository().findOneByEmail(email);
   }
 }
