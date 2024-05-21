@@ -44,6 +44,13 @@ public @Data class User implements Serializable {
   @UpdateTimestamp
   private Timestamp updatedAt;
 
+  @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Set<Role> roles;
+
   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   @EqualsAndHashCode.Exclude

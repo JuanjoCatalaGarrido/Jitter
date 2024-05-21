@@ -9,7 +9,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", uses = {
     UserPreferenceMapper.class, CommentMapper.class,
     PostMapper.class, UserFollowerMapper.class, EmailVerificationCodeMapper.class,
-    UserPostShareMapper.class, ReportMapper.class, InteractionMapper.class})
+    UserPostShareMapper.class, ReportMapper.class, InteractionMapper.class,
+    RoleMapper.class})
+
 public interface UserMapper {
 
   UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
@@ -18,7 +20,7 @@ public interface UserMapper {
   public UserSummaryDTO toUserSummaryDTO(User entity);
 
   public UserDetailsDTO toUserDetailsDTO(User entity);
-  
+
   public User toEntity(UserSummaryDTO dto);
 
   public User toEntity(UserDetailsDTO dto);
