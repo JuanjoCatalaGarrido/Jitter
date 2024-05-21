@@ -1,17 +1,18 @@
 package by.juanjo.jitter.rest.controller;
 
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 public interface UserController {
 
-  public ResponseEntity<UserSummaryDTO> create(UserSummaryDTO userDTO);
+  public ResponseEntity<UserSummaryDTO> create(@NotNull UserSummaryDTO userDTO);
 
   public ResponseEntity<UserSummaryDTO> read(Long id);
 
-  public ResponseEntity<UserSummaryDTO> update(UserSummaryDTO newUserDTO, Long id);
+  public ResponseEntity<UserSummaryDTO> update(@NotNull UserSummaryDTO newUserDTO, Long id);
 
   public ResponseEntity<Object> delete(Long id);
 
