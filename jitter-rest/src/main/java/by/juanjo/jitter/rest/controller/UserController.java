@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.controller;
 
+import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -20,5 +21,6 @@ public interface UserController {
 
   public ResponseEntity<Page<UserSummaryDTO>> getAllPaginated(Integer pageNumber);
 
+  public ResponseEntity<UserDetailsDTO> serveUserDetails(Long id);
 
 }

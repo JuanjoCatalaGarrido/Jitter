@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.controller.impl;
 
+import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.core.mapper.UserMapper;
@@ -146,5 +147,23 @@ public class UserControllerImpl implements UserController {
         .map(this.userMapper::toUserSummaryDTO);
 
     return ResponseEntity.ok(page);
+  }
+
+  @ApiResponse(responseCode = "404", description = "User not found", content = {
+      @Content(schema = @Schema())})
+  @ApiResponse(responseCode = "200", description = "User found", content = {
+      @Content(schema = @Schema(implementation = UserDetailsDTO.class))})
+  @Parameter(name = "id", description = "The users's id", example = "1", required = true)
+  @GetMapping("/{id}/details")
+  @Override
+  public ResponseEntity<UserDetailsDTO> serveUserDetails(
+      @PathVariable(value = "id") Long id) throws UserNotFoundException {
+    Optional<User> possiblyFoundUser = this.userService.findById(id);
+
+    User user = possiblyFoundUser.orElseThrow(
+        () -> new UserNotFoundException(String.format("Couldn't find user with id: %d", id)));
+
+    UserDetailsDTO userDTO = this.userMapper.toUserDetailsDTO(user);
+    return ResponseEntity.ok(userDTO);
   }
 }
