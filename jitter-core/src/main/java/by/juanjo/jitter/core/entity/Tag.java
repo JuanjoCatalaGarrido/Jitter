@@ -2,6 +2,8 @@ package by.juanjo.jitter.core.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
@@ -24,6 +26,8 @@ public @Data class Tag implements Serializable {
 
   @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
       CascadeType.MERGE})
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
   private Set<Post> associatedPosts;
 
 
