@@ -32,6 +32,9 @@ public @Data class User implements Serializable {
   @Column(name = "profile_img_url", length = 100, nullable = false)
   private String profileImgUrl;
 
+  @Column(nullable = false)
+  private Boolean enabled;
+
   @Column(name = "verified_at", nullable = true)
   @ColumnDefault("NULL")
   private Timestamp verifiedAt;
