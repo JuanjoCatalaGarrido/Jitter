@@ -1,23 +1,25 @@
 package by.juanjo.jitter.rest.config;
 
+import by.juanjo.jitter.rest.security.filter.JwtAuthFilter;
+import by.juanjo.jitter.rest.security.jwt.JWTAuthenticationEntryPoint;
 import by.juanjo.jitter.rest.service.impl.UserDetailsServiceImpl;
-import javax.sql.DataSource;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,34 +27,40 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public @Data class SecurityConfig {
 
   private UserDetailsServiceImpl userDetailsService;
+  private JwtAuthFilter jwtAuthFilter;
+  private JWTAuthenticationEntryPoint authenticationEntryPoint;
 
   @Autowired
-  public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
+  public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter,
+      JWTAuthenticationEntryPoint authenticationEntryPoint) {
     this.userDetailsService = userDetailsService;
+    this.jwtAuthFilter = jwtAuthFilter;
+    this.authenticationEntryPoint = authenticationEntryPoint;
   }
+
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(authorize -> authorize
-            .anyRequest().permitAll()
+            .requestMatchers("/static/***").permitAll()
+            .requestMatchers("/login").permitAll()
+            .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+            .anyRequest().authenticated()
         )
-        .httpBasic(Customizer.withDefaults())
-        //.addFilterBefore(new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .formLogin(AbstractHttpConfigurer::disable)
-        .logout(customizer ->
-            customizer.invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-        );
+        .headers(config ->
+            config.frameOptions(FrameOptionsConfig::sameOrigin
+            )
+        )
+        .exceptionHandling(
+            customizer -> customizer.authenticationEntryPoint(authenticationEntryPoint))
+        .csrf(AbstractHttpConfigurer::disable)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
@@ -61,7 +69,7 @@ public class SecurityConfig {
   public CorsConfigurationSource corsConfiguration() {
     CorsConfiguration corsConfig = new CorsConfiguration();
     corsConfig.applyPermitDefaultValues();
-    corsConfig.addAllowedOrigin("http://localhost:3000");
+    corsConfig.addAllowedOrigin("http://localhost:80");
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", corsConfig);
     return source;
