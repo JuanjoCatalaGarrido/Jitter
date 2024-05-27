@@ -57,10 +57,9 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     return new ResponseEntity<>(errorResponse, HttpStatus.OK);
   }
 
-
   @Override
   @PostMapping("/register")
-  public ResponseEntity<> register(@RequestBody @NotNull RegisterRequestDTO dto) {
+  public ResponseEntity<Object> register(@RequestBody @NotNull RegisterRequestDTO dto) {
     return null;
   }
 }
