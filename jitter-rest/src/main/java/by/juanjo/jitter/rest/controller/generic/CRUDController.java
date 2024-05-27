@@ -1,4 +1,4 @@
-package by.juanjo.jitter.rest.controller;
+package by.juanjo.jitter.rest.controller.generic;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
