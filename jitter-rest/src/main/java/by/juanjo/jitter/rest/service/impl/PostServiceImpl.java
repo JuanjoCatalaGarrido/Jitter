@@ -7,6 +7,7 @@ import by.juanjo.jitter.rest.service.generic.ServiceBase;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostServiceImpl extends ServiceBase<Post, Long, PostRepository> implements
@@ -17,6 +18,7 @@ public class PostServiceImpl extends ServiceBase<Post, Long, PostRepository> imp
     super(repository);
   }
 
+  @Transactional(readOnly = true)
   public List<Post> findByOwnerId(Long id) {
     return this.getRepository().findByOwnerId(id);
   }
