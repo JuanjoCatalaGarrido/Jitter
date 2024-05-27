@@ -23,6 +23,7 @@
     <version.flyway-maven-plugin>10.11.0</version.flyway-maven-plugin>
     <version.spring-boot-starter-security>3.2.5</version.spring-boot-starter-security>
     <version.jitter-react-webui>0.0.1</version.jitter-react-webui>
+    <version.jjwt>0.12.5</version.jjwt>
   </properties>
 
   <dependencies>
@@ -50,6 +51,23 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
       <version>${version.spring-boot-starter-security}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${version.jjwt}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${version.jjwt}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${version.jjwt}</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
