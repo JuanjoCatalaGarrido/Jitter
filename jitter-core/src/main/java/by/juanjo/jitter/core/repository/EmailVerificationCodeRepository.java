@@ -12,5 +12,7 @@ public interface EmailVerificationCodeRepository extends JpaRepository<EmailVeri
 
   public List<EmailVerificationCode> findByUserId(Long id);
 
+  public List<EmailVerificationCode> findLatestByUserId(Long id);
+
   public List<EmailVerificationCode> findByCode(Integer code);
 }

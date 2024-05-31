@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
+import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import lombok.Data;
 public @Data class EmailVerificationCodeDTO implements Serializable {
 
   private Long id;
-  private UserSummaryDTO user;
+  private MinimalUserDTO user;
   private Integer code;
   private Timestamp createdAt;
 
