@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.ResourceAccessException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -68,11 +69,12 @@ public class UserControllerImpl implements UserController {
   @Parameter(name = "id", description = "The user's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<UserSummaryDTO> read(@PathVariable Long id) throws UserNotFoundException {
+  public ResponseEntity<UserSummaryDTO> read(@PathVariable Long id)
+      throws ElementNotFoundException {
     Optional<User> possiblyFoundUser = this.userService.findById(id);
 
     User user = possiblyFoundUser.orElseThrow(
-        () -> new UserNotFoundException(String.format("Couldn't find user with id: %d", id)));
+        () -> new ElementNotFoundException(String.format("Couldn't find user with id: %d", id)));
 
     UserSummaryDTO userDTO = this.userMapper.toUserSummaryDTO(user);
     return ResponseEntity.ok(userDTO);
