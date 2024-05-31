@@ -23,6 +23,6 @@ public class EmailVerificationCodeServiceImpl extends
   @Transactional(readOnly = true)
   @Override
   public Optional<EmailVerificationCode> findLatestByUserId(Long id) {
-    return this.getRepository().findLatestByUserId(id);
+    return this.getRepository().findFirstByUserIdOrderByCreatedAt(id);
   }
 }
