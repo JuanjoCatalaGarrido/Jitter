@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
+import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import lombok.Data;
 public @Data class CommentDTO implements Serializable {
 
   private Long id;
-  private UserSummaryDTO owner;
+  private MinimalUserDTO owner;
   private PostSummaryDTO repliedPost;
   private String body;
   private Timestamp createdAt;
