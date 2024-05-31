@@ -2,9 +2,9 @@ package by.juanjo.jitter.rest.service;
 
 import by.juanjo.jitter.core.entity.EmailVerificationCode;
 import by.juanjo.jitter.rest.service.generic.Service;
-import java.util.List;
+import java.util.Optional;
 
 public interface EmailVerificationCodeService extends Service<EmailVerificationCode, Long> {
 
-  public List<EmailVerificationCode> findLatestByUserId(Long id);
+  public Optional<EmailVerificationCode> findLatestByUserId(Long id);
 }
