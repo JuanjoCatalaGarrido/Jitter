@@ -5,7 +5,7 @@ import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Comment;
 import by.juanjo.jitter.core.mapper.CommentMapper;
 import by.juanjo.jitter.rest.controller.CommentController;
-import by.juanjo.jitter.rest.exception.PostNotFoundException;
+import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.CommentService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -66,11 +66,11 @@ public class CommentControllerImpl implements CommentController {
   @Parameter(name = "id", description = "The comment's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<CommentDTO> read(@PathVariable Long id) {
+  public ResponseEntity<CommentDTO> read(@PathVariable Long id) throws ElementNotFoundException {
     Optional<Comment> possiblyFoundPost = this.commentService.findById(id);
 
     Comment comment = possiblyFoundPost.orElseThrow(
-        () -> new PostNotFoundException(String.format("Couldn't find comment with id: %d", id)));
+        () -> new ElementNotFoundException(String.format("Couldn't find comment with id: %d", id)));
 
     CommentDTO commentDTO = this.commentMapper.toDTO(comment);
     return ResponseEntity.ok(commentDTO);

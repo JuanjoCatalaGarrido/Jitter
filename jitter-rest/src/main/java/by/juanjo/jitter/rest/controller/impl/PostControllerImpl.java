@@ -5,7 +5,7 @@ import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Post;
 import by.juanjo.jitter.core.mapper.PostMapper;
 import by.juanjo.jitter.rest.controller.PostController;
-import by.juanjo.jitter.rest.exception.PostNotFoundException;
+import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.PostService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -67,11 +67,12 @@ public class PostControllerImpl implements PostController {
   @Parameter(name = "id", description = "The post's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<PostSummaryDTO> read(@PathVariable Long id) throws PostNotFoundException {
+  public ResponseEntity<PostSummaryDTO> read(@PathVariable Long id)
+      throws ElementNotFoundException {
     Optional<Post> possiblyFoundPost = this.postService.findById(id);
 
     Post post = possiblyFoundPost.orElseThrow(
-        () -> new PostNotFoundException(String.format("Couldn't find post with id: %d", id)));
+        () -> new ElementNotFoundException(String.format("Couldn't find post with id: %d", id)));
 
     PostSummaryDTO postDTO = this.postMapper.toPostSummaryDTO(post);
     return ResponseEntity.ok(postDTO);
@@ -158,11 +159,11 @@ public class PostControllerImpl implements PostController {
   @GetMapping("/{id}/details")
   @Override
   public ResponseEntity<PostDetailsDTO> servePostDetails(@PathVariable Long id)
-      throws PostNotFoundException {
+      throws ElementNotFoundException {
     Optional<Post> possiblyFoundPost = this.postService.findById(id);
 
     Post post = possiblyFoundPost.orElseThrow(
-        () -> new PostNotFoundException(String.format("Couldn't find post with id: %d", id)));
+        () -> new ElementNotFoundException(String.format("Couldn't find post with id: %d", id)));
 
     PostDetailsDTO postDTO = this.postMapper.toPostDetailsDTO(post);
     return ResponseEntity.ok(postDTO);

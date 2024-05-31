@@ -5,7 +5,7 @@ import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.UserController;
-import by.juanjo.jitter.rest.exception.UserNotFoundException;
+import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -157,11 +157,11 @@ public class UserControllerImpl implements UserController {
   @GetMapping("/{id}/details")
   @Override
   public ResponseEntity<UserDetailsDTO> serveUserDetails(
-      @PathVariable(value = "id") Long id) throws UserNotFoundException {
+      @PathVariable(value = "id") Long id) throws ElementNotFoundException {
     Optional<User> possiblyFoundUser = this.userService.findById(id);
 
     User user = possiblyFoundUser.orElseThrow(
-        () -> new UserNotFoundException(String.format("Couldn't find user with id: %d", id)));
+        () -> new ElementNotFoundException(String.format("Couldn't find user with id: %d", id)));
 
     UserDetailsDTO userDTO = this.userMapper.toUserDetailsDTO(user);
     return ResponseEntity.ok(userDTO);

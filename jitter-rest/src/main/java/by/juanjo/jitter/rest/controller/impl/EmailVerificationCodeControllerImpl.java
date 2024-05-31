@@ -5,7 +5,7 @@ import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.EmailVerificationCode;
 import by.juanjo.jitter.core.mapper.EmailVerificationCodeMapper;
 import by.juanjo.jitter.rest.controller.EmailVerificationCodeController;
-import by.juanjo.jitter.rest.exception.PostNotFoundException;
+import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.EmailVerificationCodeService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -71,12 +71,13 @@ public class EmailVerificationCodeControllerImpl implements EmailVerificationCod
   @Parameter(name = "id", description = "The emailVerificationCode's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<EmailVerificationCodeDTO> read(@PathVariable Long id) {
+  public ResponseEntity<EmailVerificationCodeDTO> read(@PathVariable Long id)
+      throws ElementNotFoundException {
     Optional<EmailVerificationCode> possiblyFoundPost = this.emailVerificationCodeService.findById(
         id);
 
     EmailVerificationCode emailVerificationCode = possiblyFoundPost.orElseThrow(
-        () -> new PostNotFoundException(
+        () -> new ElementNotFoundException(
             String.format("Couldn't find emailVerificationCode with id: %d", id)));
 
     EmailVerificationCodeDTO emailVerificationCodeDTO = this.mapper.toDTO(emailVerificationCode);
@@ -160,4 +161,25 @@ public class EmailVerificationCodeControllerImpl implements EmailVerificationCod
 
     return ResponseEntity.ok(page);
   }
+
+  @ApiResponse(responseCode = "404", description = "EmailVerificationCode not found", content = {
+      @Content(schema = @Schema())})
+  @ApiResponse(responseCode = "200", description = "EmailVerificationCode found", content = {
+      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+  @Parameter(name = "id", description = "The emailVerificationCode's id", example = "1", required = true)
+  @GetMapping("/latestFromUser/{id}")
+  @Override
+  public ResponseEntity<EmailVerificationCodeDTO> readFromUserId(
+      @PathVariable(value = "id") Long userId) throws ElementNotFoundException {
+    Optional<EmailVerificationCode> possiblyFoundPost = this.emailVerificationCodeService.findLatestByUserId(
+        userId);
+
+    EmailVerificationCode emailVerificationCode = possiblyFoundPost.orElseThrow(
+        () -> new ElementNotFoundException(
+            String.format("Couldn't find emailVerificationCode from User with id: %d", userId)));
+
+    EmailVerificationCodeDTO emailVerificationCodeDTO = this.mapper.toDTO(emailVerificationCode);
+    return ResponseEntity.ok(emailVerificationCodeDTO);
+  }
+
 }
