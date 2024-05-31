@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
+import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -9,8 +10,8 @@ import lombok.Data;
 public @Data class UserFollowerDTO implements Serializable {
 
   private UserFollowerIdDTO id;
-  private UserSummaryDTO user;
-  private UserSummaryDTO follower;
+  private MinimalUserDTO user;
+  private MinimalUserDTO follower;
   private Timestamp createdAt;
 
   @JsonProperty(access = Access.READ_ONLY)

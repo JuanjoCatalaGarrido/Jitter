@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
+import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ public @Data class UserPreferenceDTO implements Serializable {
 
   private Long id;
   @JsonProperty(access = Access.READ_ONLY)
-  private UserSummaryDTO user;
+  private MinimalUserDTO user;
   private Boolean darkMode = false;
   private Boolean telemetry = false;
 

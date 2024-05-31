@@ -1,20 +1,17 @@
-package by.juanjo.jitter.core.dto;
+package by.juanjo.jitter.core.dto.minimal;
 
-import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 import lombok.Data;
 
-public @Data class TagDTO implements Serializable {
+public @Data class MinimalPostDTO implements Serializable {
 
   private Long id;
-  private String name;
+  private String body;
   private Timestamp createdAt;
-  @JsonProperty(access = Access.READ_ONLY)
-  private Set<MinimalPostDTO> associatedPosts;
+  private Timestamp updatedAt;
 
   @JsonProperty(access = Access.READ_ONLY)
   public Long getId() {
@@ -24,5 +21,10 @@ public @Data class TagDTO implements Serializable {
   @JsonProperty(access = Access.READ_ONLY)
   public Timestamp getCreatedAt() {
     return this.createdAt;
+  }
+
+  @JsonProperty(access = Access.READ_ONLY)
+  public Timestamp getUpdatedAt() {
+    return this.updatedAt;
   }
 }

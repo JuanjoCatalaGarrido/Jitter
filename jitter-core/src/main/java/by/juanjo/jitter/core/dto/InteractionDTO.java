@@ -1,5 +1,7 @@
 package by.juanjo.jitter.core.dto;
 
+import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -9,8 +11,8 @@ import lombok.Data;
 public @Data class InteractionDTO implements Serializable {
 
   private Long id;
-  private UserSummaryDTO user;
-  private PostSummaryDTO post;
+  private MinimalUserDTO user;
+  private MinimalPostDTO post;
   private Integer interactionType;
   private Timestamp createdAt;
 

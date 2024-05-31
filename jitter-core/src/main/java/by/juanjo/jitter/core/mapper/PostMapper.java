@@ -2,6 +2,7 @@ package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.PostDetailsDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
 import by.juanjo.jitter.core.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -13,13 +14,19 @@ import org.mapstruct.factory.Mappers;
 public interface PostMapper {
 
   PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
-  
+
   public PostSummaryDTO toPostSummaryDTO(Post entity);
 
   public PostDetailsDTO toPostDetailsDTO(Post entity);
+
+  public MinimalPostDTO toMinimalDTO(Post entity);
 
 
   public Post toEntity(PostSummaryDTO dto);
 
   public Post toEntity(PostDetailsDTO dto);
+
+  public Post toEntity(MinimalPostDTO dto);
+
+
 }

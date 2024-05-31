@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ public @Data class UserSummaryDTO implements Serializable {
 
   private Long id;
   private String username;
+  @JsonIgnore
   private String password;
   private String email;
   private String profileImgUrl;
