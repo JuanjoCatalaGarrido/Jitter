@@ -33,7 +33,7 @@ public @Data class User implements Serializable {
   private String profileImgUrl;
 
   @Column(nullable = false)
-  private Boolean enabled;
+  private Boolean enabled = false;
 
   @Column(name = "verified_at", nullable = true)
   @ColumnDefault("NULL")
