@@ -36,8 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/reports")
 public class ReportControllerImpl implements ReportController {
 
-  private ReportService service;
-  private ReportMapper mapper;
+  private final ReportService service;
+  private final ReportMapper mapper;
 
   @Autowired
   public ReportControllerImpl(ReportService service, ReportMapper mapper) {
@@ -88,7 +88,7 @@ public class ReportControllerImpl implements ReportController {
   public ResponseEntity<ReportDTO> update(@RequestBody @NotNull ReportDTO newReportDTO,
       @PathVariable Long id) {
     Optional<Report> possiblyFoundReport = this.service.findById(id);
-    if (!possiblyFoundReport.isPresent()) {
+    if (possiblyFoundReport.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -111,7 +111,7 @@ public class ReportControllerImpl implements ReportController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.service.findById(id).isPresent()) {
+    if (this.service.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.service.deleteById(id);

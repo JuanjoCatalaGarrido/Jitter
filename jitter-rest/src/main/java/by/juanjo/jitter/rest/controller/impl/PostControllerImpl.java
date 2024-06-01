@@ -89,7 +89,7 @@ public class PostControllerImpl implements PostController {
   public ResponseEntity<PostSummaryDTO> update(@RequestBody @NotNull PostSummaryDTO newPostDTO,
       @PathVariable Long id) {
     Optional<Post> possiblyFoundPost = this.postService.findById(id);
-    if (!possiblyFoundPost.isPresent()) {
+    if (possiblyFoundPost.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -112,7 +112,7 @@ public class PostControllerImpl implements PostController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.postService.findById(id).isPresent()) {
+    if (this.postService.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.postService.deleteById(id);

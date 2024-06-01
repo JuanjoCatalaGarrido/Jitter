@@ -36,8 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/interactions")
 public class InteractionControllerImpl implements InteractionController {
 
-  private InteractionService interactionService;
-  private InteractionMapper interactionMapper;
+  private final InteractionService interactionService;
+  private final InteractionMapper interactionMapper;
 
   @Autowired
   public InteractionControllerImpl(InteractionService interactionService,
@@ -92,7 +92,7 @@ public class InteractionControllerImpl implements InteractionController {
       @RequestBody @NotNull InteractionDTO newInteractionDTO,
       @PathVariable Long id) {
     Optional<Interaction> possiblyFoundInteraction = this.interactionService.findById(id);
-    if (!possiblyFoundInteraction.isPresent()) {
+    if (possiblyFoundInteraction.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -115,7 +115,7 @@ public class InteractionControllerImpl implements InteractionController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.interactionService.findById(id).isPresent()) {
+    if (this.interactionService.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.interactionService.deleteById(id);

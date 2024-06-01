@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/comments")
 public class CommentControllerImpl implements CommentController {
 
-  private CommentService commentService;
-  private CommentMapper commentMapper;
+  private final CommentService commentService;
+  private final CommentMapper commentMapper;
 
   @Autowired
   public CommentControllerImpl(CommentService commentService, CommentMapper commentMapper) {
@@ -88,7 +88,7 @@ public class CommentControllerImpl implements CommentController {
   public ResponseEntity<CommentDTO> update(@RequestBody @NotNull CommentDTO dto,
       @PathVariable Long id) {
     Optional<Comment> possiblyFoundComment = this.commentService.findById(id);
-    if (!possiblyFoundComment.isPresent()) {
+    if (possiblyFoundComment.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -111,7 +111,7 @@ public class CommentControllerImpl implements CommentController {
   @DeleteMapping("/{id}")
   @Override
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.commentService.findById(id).isPresent()) {
+    if (this.commentService.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.commentService.deleteById(id);

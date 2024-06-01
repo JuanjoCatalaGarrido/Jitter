@@ -36,8 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/roles")
 public class RoleControllerImpl implements RoleController {
 
-  private RoleService service;
-  private RoleMapper mapper;
+  private final RoleService service;
+  private final RoleMapper mapper;
 
   @Autowired
   public RoleControllerImpl(RoleService service, RoleMapper mapper) {
@@ -88,7 +88,7 @@ public class RoleControllerImpl implements RoleController {
   public ResponseEntity<RoleDTO> update(@RequestBody @NotNull RoleDTO newRoleDTO,
       @PathVariable Long id) {
     Optional<Role> possiblyFoundRole = this.service.findById(id);
-    if (!possiblyFoundRole.isPresent()) {
+    if (possiblyFoundRole.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -111,7 +111,7 @@ public class RoleControllerImpl implements RoleController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.service.findById(id).isPresent()) {
+    if (this.service.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.service.deleteById(id);

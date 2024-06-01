@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/emailVerificationCodes")
 public class EmailVerificationCodeControllerImpl implements EmailVerificationCodeController {
 
-  private EmailVerificationCodeService emailVerificationCodeService;
-  private EmailVerificationCodeMapper mapper;
+  private final EmailVerificationCodeService emailVerificationCodeService;
+  private final EmailVerificationCodeMapper mapper;
 
   @Autowired
   public EmailVerificationCodeControllerImpl(
@@ -97,7 +97,7 @@ public class EmailVerificationCodeControllerImpl implements EmailVerificationCod
       @RequestBody @NotNull EmailVerificationCodeDTO dto, @PathVariable Long id) {
     Optional<EmailVerificationCode> possiblyFoundEmailVerificationCode = this.emailVerificationCodeService.findById(
         id);
-    if (!possiblyFoundEmailVerificationCode.isPresent()) {
+    if (possiblyFoundEmailVerificationCode.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -122,7 +122,7 @@ public class EmailVerificationCodeControllerImpl implements EmailVerificationCod
   @DeleteMapping("/{id}")
   @Override
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.emailVerificationCodeService.findById(id).isPresent()) {
+    if (this.emailVerificationCodeService.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.emailVerificationCodeService.deleteById(id);

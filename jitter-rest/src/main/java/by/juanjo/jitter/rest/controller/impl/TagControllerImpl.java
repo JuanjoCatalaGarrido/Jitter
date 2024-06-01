@@ -36,8 +36,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/tags")
 public class TagControllerImpl implements TagController {
 
-  private TagService service;
-  private TagMapper mapper;
+  private final TagService service;
+  private final TagMapper mapper;
 
   @Autowired
   public TagControllerImpl(TagService service, TagMapper mapper) {
@@ -88,7 +88,7 @@ public class TagControllerImpl implements TagController {
   public ResponseEntity<TagDTO> update(@RequestBody @NotNull TagDTO newTagDTO,
       @PathVariable Long id) {
     Optional<Tag> possiblyFoundTag = this.service.findById(id);
-    if (!possiblyFoundTag.isPresent()) {
+    if (possiblyFoundTag.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -111,7 +111,7 @@ public class TagControllerImpl implements TagController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.service.findById(id).isPresent()) {
+    if (this.service.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.service.deleteById(id);

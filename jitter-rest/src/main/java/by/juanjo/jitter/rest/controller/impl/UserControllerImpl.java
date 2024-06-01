@@ -90,7 +90,7 @@ public class UserControllerImpl implements UserController {
   public ResponseEntity<UserSummaryDTO> update(@RequestBody @NotNull UserSummaryDTO newUserDTO,
       @PathVariable Long id) {
     Optional<User> possiblyFoundUser = this.userService.findById(id);
-    if (!possiblyFoundUser.isPresent()) {
+    if (possiblyFoundUser.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
 
@@ -113,7 +113,7 @@ public class UserControllerImpl implements UserController {
   @Override
   @DeleteMapping("/{id}")
   public ResponseEntity<Object> delete(@PathVariable Long id) {
-    if (!this.userService.findById(id).isPresent()) {
+    if (this.userService.findById(id).isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     this.userService.deleteById(id);
