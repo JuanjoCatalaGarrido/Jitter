@@ -1,6 +1,7 @@
 package by.juanjo.jitter.core.dto;
 
 import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.io.Serializable;
@@ -13,7 +14,8 @@ public @Data class TagDTO implements Serializable {
   private Long id;
   private String name;
   private Timestamp createdAt;
-  @JsonProperty(access = Access.READ_ONLY)
+
+  @JsonIgnore
   private Set<MinimalPostDTO> associatedPosts;
 
   @JsonProperty(access = Access.READ_ONLY)
