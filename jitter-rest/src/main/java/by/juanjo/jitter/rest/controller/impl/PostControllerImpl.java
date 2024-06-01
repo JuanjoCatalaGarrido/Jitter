@@ -3,6 +3,7 @@ package by.juanjo.jitter.rest.controller.impl;
 import by.juanjo.jitter.core.dto.PostDetailsDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Post;
+import by.juanjo.jitter.core.entity.Post_;
 import by.juanjo.jitter.core.mapper.PostMapper;
 import by.juanjo.jitter.rest.controller.PostController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -141,7 +142,7 @@ public class PostControllerImpl implements PostController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable postsSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("postname").descending());
+        Sort.by(Post_.CREATED_AT).descending());
 
     Page<PostSummaryDTO> page = this.postService.findAll(postsSortedByNameDesc)
         .map(this.postMapper::toPostSummaryDTO);

@@ -2,6 +2,7 @@ package by.juanjo.jitter.rest.controller.impl;
 
 import by.juanjo.jitter.core.dto.InteractionDTO;
 import by.juanjo.jitter.core.entity.Interaction;
+import by.juanjo.jitter.core.entity.Interaction_;
 import by.juanjo.jitter.core.mapper.InteractionMapper;
 import by.juanjo.jitter.rest.controller.InteractionController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -145,7 +146,7 @@ public class InteractionControllerImpl implements InteractionController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable interactionsSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("interactionname").descending());
+        Sort.by(Interaction_.CREATED_AT).descending());
 
     Page<InteractionDTO> page = this.interactionService.findAll(interactionsSortedByNameDesc)
         .map(this.interactionMapper::toDTO);

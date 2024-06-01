@@ -3,6 +3,7 @@ package by.juanjo.jitter.rest.controller.impl;
 import by.juanjo.jitter.core.dto.EmailVerificationCodeDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.EmailVerificationCode;
+import by.juanjo.jitter.core.entity.EmailVerificationCode_;
 import by.juanjo.jitter.core.mapper.EmailVerificationCodeMapper;
 import by.juanjo.jitter.rest.controller.EmailVerificationCodeController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -153,7 +154,7 @@ public class EmailVerificationCodeControllerImpl implements EmailVerificationCod
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable usersSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("username").descending());
+        Sort.by(EmailVerificationCode_.CREATED_AT).descending());
 
     Page<EmailVerificationCodeDTO> page = this.emailVerificationCodeService.findAll(
             usersSortedByNameDesc)

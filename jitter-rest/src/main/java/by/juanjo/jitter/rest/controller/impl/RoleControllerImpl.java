@@ -2,6 +2,7 @@ package by.juanjo.jitter.rest.controller.impl;
 
 import by.juanjo.jitter.core.dto.RoleDTO;
 import by.juanjo.jitter.core.entity.Role;
+import by.juanjo.jitter.core.entity.Role_;
 import by.juanjo.jitter.core.mapper.RoleMapper;
 import by.juanjo.jitter.rest.controller.RoleController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -140,7 +141,7 @@ public class RoleControllerImpl implements RoleController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable rolesSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("rolename").descending());
+        Sort.by(Role_.NAME).descending());
 
     Page<RoleDTO> page = this.service.findAll(rolesSortedByNameDesc)
         .map(this.mapper::toDTO);

@@ -3,6 +3,7 @@ package by.juanjo.jitter.rest.controller.impl;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.entity.User;
+import by.juanjo.jitter.core.entity.User_;
 import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.UserController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -32,7 +33,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.ResourceAccessException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -143,7 +143,7 @@ public class UserControllerImpl implements UserController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable usersSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("username").descending());
+        Sort.by(User_.USERNAME).descending());
 
     Page<UserSummaryDTO> page = this.userService.findAll(usersSortedByNameDesc)
         .map(this.userMapper::toUserSummaryDTO);

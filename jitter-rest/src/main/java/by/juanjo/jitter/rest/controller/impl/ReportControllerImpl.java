@@ -2,6 +2,7 @@ package by.juanjo.jitter.rest.controller.impl;
 
 import by.juanjo.jitter.core.dto.ReportDTO;
 import by.juanjo.jitter.core.entity.Report;
+import by.juanjo.jitter.core.entity.Report_;
 import by.juanjo.jitter.core.mapper.ReportMapper;
 import by.juanjo.jitter.rest.controller.ReportController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -140,7 +141,7 @@ public class ReportControllerImpl implements ReportController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable reportsSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("reportname").descending());
+        Sort.by(Report_.CREATED_AT).descending());
 
     Page<ReportDTO> page = this.service.findAll(reportsSortedByNameDesc)
         .map(this.mapper::toDTO);

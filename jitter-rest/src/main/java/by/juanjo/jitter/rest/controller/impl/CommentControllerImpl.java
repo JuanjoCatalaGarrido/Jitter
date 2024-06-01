@@ -3,6 +3,7 @@ package by.juanjo.jitter.rest.controller.impl;
 import by.juanjo.jitter.core.dto.CommentDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Comment;
+import by.juanjo.jitter.core.entity.Comment_;
 import by.juanjo.jitter.core.mapper.CommentMapper;
 import by.juanjo.jitter.rest.controller.CommentController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -141,7 +142,7 @@ public class CommentControllerImpl implements CommentController {
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable usersSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
-        Sort.by("username").descending());
+        Sort.by(Comment_.CREATED_AT).descending());
 
     Page<CommentDTO> page = this.commentService.findAll(usersSortedByNameDesc)
         .map(this.commentMapper::toDTO);
