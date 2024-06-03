@@ -1,9 +1,16 @@
 package by.juanjo.jitter.rest.controller.impl;
 
+import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.dto.auth.LoginRequestDTO;
 import by.juanjo.jitter.core.dto.auth.RegisterRequestDTO;
+import by.juanjo.jitter.core.entity.User;
+import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.AuthenticationController;
 import by.juanjo.jitter.rest.service.AuthenticationService;
+import by.juanjo.jitter.rest.service.UserService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,10 +29,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationControllerImpl implements AuthenticationController {
 
   private AuthenticationService authenticationService;
+  private UserService userService;
+  private UserMapper userMapper;
 
   @Autowired
-  public AuthenticationControllerImpl(AuthenticationService authenticationService) {
+  public AuthenticationControllerImpl(AuthenticationService authenticationService,
+      UserService userService, UserMapper userMapper) {
     this.authenticationService = authenticationService;
+    this.userService = userService;
+    this.userMapper = userMapper;
   }
 
   @Override
@@ -57,9 +69,18 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     return new ResponseEntity<>(errorResponse, HttpStatus.OK);
   }
 
-  @Override
+
+  @ApiResponse(responseCode = "201", description = "User created successfully", content = {
+      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+  @ApiResponse(responseCode = "400", description = "Provided user is null", content = {
+      @Content(schema = @Schema())})
   @PostMapping("/register")
+  @Override
   public ResponseEntity<Object> register(@RequestBody @NotNull RegisterRequestDTO dto) {
-    return null;
+    User userToRegister = this.userMapper.toEntity(dto);
+    User savedUser = this.userService.save(userToRegister);
+
+    UserSummaryDTO savedUserDTO = this.userMapper.toUserSummaryDTO(savedUser);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
   }
 }

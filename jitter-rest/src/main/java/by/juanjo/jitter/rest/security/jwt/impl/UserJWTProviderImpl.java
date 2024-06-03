@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.security.jwt.impl;
 
+import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.rest.security.jwt.UserJWTProvider;
 import by.juanjo.jitter.rest.security.jwt.exception.SigningSecretNotDefinedException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,10 +55,11 @@ public @Data class UserJWTProviderImpl implements UserJWTProvider {
   }
 
   @Override
-  public String issueToken(UserDetails userDetails) throws JsonProcessingException {
+  public String issueToken(User user) throws JsonProcessingException {
     return Jwts.builder()
         .issuer("Jitter")
-        .subject(userDetails.getUsername())
+        .subject(Long.toString(user.getId()))
+        .claim("username", user.getUsername())
         .issuedAt(new Date(System.currentTimeMillis()))
         .expiration(new Date(System.currentTimeMillis() + this.expirationTimeInMS))
         .signWith(this.signingKey)

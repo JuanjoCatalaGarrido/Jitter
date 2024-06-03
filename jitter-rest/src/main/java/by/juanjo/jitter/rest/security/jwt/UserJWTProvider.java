@@ -1,14 +1,14 @@
 package by.juanjo.jitter.rest.security.jwt;
 
+import by.juanjo.jitter.core.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import java.util.Date;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserJWTProvider {
 
-  public String issueToken(UserDetails dto) throws JsonProcessingException;
+  public String issueToken(User user) throws JsonProcessingException;
 
   public Jws<Claims> retrieve(String token) throws JsonProcessingException;
 
