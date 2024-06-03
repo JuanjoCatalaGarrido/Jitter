@@ -3,15 +3,11 @@ package by.juanjo.jitter.rest.config;
 import by.juanjo.jitter.rest.security.filter.JwtAuthFilter;
 import by.juanjo.jitter.rest.security.jwt.JWTAuthenticationEntryPoint;
 import by.juanjo.jitter.rest.service.impl.UserDetailsServiceImpl;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,7 +25,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -41,10 +36,10 @@ public @Data class SecurityConfig {
   private JWTAuthenticationEntryPoint authenticationEntryPoint;
 
   @Autowired
-  public SecurityConfig(UserDetailsServiceImpl userDetailsService,
+  public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter,
       JWTAuthenticationEntryPoint authenticationEntryPoint) {
     this.userDetailsService = userDetailsService;
-    //this.jwtAuthFilter = jwtAuthFilter;
+    this.jwtAuthFilter = jwtAuthFilter;
     this.authenticationEntryPoint = authenticationEntryPoint;
   }
 
@@ -52,27 +47,27 @@ public @Data class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(authorize -> authorize
-            /*    .requestMatchers("/", "/index.html").permitAll()
-                .requestMatchers("/favicon.ico").permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
-                .requestMatchers("/error").permitAll()
-                .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/doc/swagger-ui/**"),
-                    new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-                .anyRequest().authenticated()*/
+            .requestMatchers("/", "/index.html").permitAll()
+            .requestMatchers("/favicon.ico").permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
+            .requestMatchers("/error").permitAll()
+            .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/doc/swagger-ui/**"),
+                new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+            .anyRequest().authenticated()
             .anyRequest().permitAll()
         )
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .headers(config ->
-            config.frameOptions(FrameOptionsConfig::sameOrigin
-            )
+            config.frameOptions(FrameOptionsConfig::sameOrigin)
         )
         .exceptionHandling(
             customizer -> customizer.authenticationEntryPoint(authenticationEntryPoint))
-        .csrf(AbstractHttpConfigurer::disable);
-    //.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(config -> config.configurationSource(corsConfiguration()))
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
@@ -80,24 +75,19 @@ public @Data class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfiguration() {
     CorsConfiguration corsConfig = new CorsConfiguration();
-    corsConfig.applyPermitDefaultValues();
     corsConfig.addAllowedOrigin("http://localhost:3010");
-    corsConfig.setAllowedMethods(Arrays.asList("GET", "POST"));
+    corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
+    corsConfig.addAllowedHeader("Authorization");
+    corsConfig.addAllowedHeader("Content-Type");
+    corsConfig.addAllowedHeader("Accept");
+    corsConfig.addAllowedHeader("X-Requested-With");
+    corsConfig.addAllowedHeader("Origin");
+    corsConfig.setAllowCredentials(true);
+
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", corsConfig);
     return source;
   }
-
-  @Bean
-  CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("https://example.com"));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-  }
-
 
   @Bean
   public PasswordEncoder passwordEncoder() {
