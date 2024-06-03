@@ -2,8 +2,11 @@ package by.juanjo.jitter.rest.controller.impl;
 
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
+import by.juanjo.jitter.core.dto.filter.UserFilterDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalUserFollowerDTO;
 import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.core.entity.User_;
+import by.juanjo.jitter.core.mapper.UserFollowerMapper;
 import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.UserController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
@@ -22,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,11 +45,14 @@ public class UserControllerImpl implements UserController {
 
   private final UserService userService;
   private final UserMapper userMapper;
+  private final UserFollowerMapper userFollowerMapper;
 
   @Autowired
-  public UserControllerImpl(UserService userService, UserMapper userMapper) {
+  public UserControllerImpl(UserService userService, UserMapper userMapper,
+      UserFollowerMapper userFollowerMapper) {
     this.userService = userService;
     this.userMapper = userMapper;
+    this.userFollowerMapper = userFollowerMapper;
   }
 
   @ApiResponse(responseCode = "201", description = "User created successfully", content = {
@@ -151,6 +158,22 @@ public class UserControllerImpl implements UserController {
     return ResponseEntity.ok(page);
   }
 
+  @ApiResponse(responseCode = "200", description = "User filtered successfully", content = {
+      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+  @PostMapping("/filter")
+  @Override
+  public ResponseEntity<List<UserSummaryDTO>> filter(@RequestBody @NotNull UserFilterDTO dto) {
+
+    Specification<User> filterCriteria = dto.provideFilterSpecification();
+
+    List<User> result = this.userService.findAll(filterCriteria);
+    List<UserSummaryDTO> resultAsDTO = result.stream().map(this.userMapper::toUserSummaryDTO)
+        .toList();
+
+    return ResponseEntity.ok(resultAsDTO);
+  }
+
+
   @ApiResponse(responseCode = "404", description = "User not found", content = {
       @Content(schema = @Schema())})
   @ApiResponse(responseCode = "200", description = "User found", content = {
@@ -168,4 +191,37 @@ public class UserControllerImpl implements UserController {
     UserDetailsDTO userDTO = this.userMapper.toUserDetailsDTO(user);
     return ResponseEntity.ok(userDTO);
   }
+
+
+  @GetMapping("/{id}/followers")
+  public ResponseEntity<List<MinimalUserFollowerDTO>> followers(@PathVariable Long id) {
+    User user = this.userService.findById(id)
+        .orElseThrow(() -> new ElementNotFoundException("Not found user with ID: " + id));
+    List<MinimalUserFollowerDTO> followers = user.getFollowers().stream()
+        .map(this.userFollowerMapper::toMinimalDTO).toList();
+
+    return ResponseEntity.ok(followers);
+  }
+
+  @PostMapping("/{id}/followers/{followerId}")
+  public ResponseEntity<?> addFollower(@PathVariable Long id,
+      @PathVariable Long followerId) {
+
+    this.userService.addFollower(id, followerId);
+
+    return ResponseEntity.ok().build();
+  }
+
+
+  @GetMapping("/{id}/follows")
+  public ResponseEntity<List<MinimalUserFollowerDTO>> follows(@PathVariable Long id) {
+    User user = this.userService.findById(id)
+        .orElseThrow(() -> new ElementNotFoundException("Not found user with ID: " + id));
+    List<MinimalUserFollowerDTO> followers = user.getFollows().stream()
+        .map(this.userFollowerMapper::toMinimalDTO).toList();
+
+    return ResponseEntity.ok(followers);
+  }
+
+
 }
