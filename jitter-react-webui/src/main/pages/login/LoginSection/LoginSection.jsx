@@ -1,20 +1,69 @@
 import './loginSection.scss'
+import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import {useAuth} from "../../../hooks/authentication";
+import {resolveEndpoint} from "../../../utils/endpoints";
+import axios from "axios";
 
 export function LoginSection(){
+    const navigate = useNavigate();
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [status, setStatus] = useState(undefined);
+    const {token, setToken} = useAuth();
+
+    function handleusernameChange (e){
+        setUsername(e.target.value);
+    }
+
+    function handlePasswordChange(e){
+        setPassword(e.target.value);
+    }
+
+    function handleFormSubmit(e){
+        e.preventDefault();
+
+        let body = {
+            username : username,
+            password : password
+        }
+
+        axios.post(resolveEndpoint("/api/auth/login"), body)
+            .then((response) => {
+                setToken(response.data.token);
+                setStatus(undefined);
+
+                navigate("/dashboard");
+            }).catch((reason) => {
+            if(!reason.response){
+                setStatus("No se pudo relizar la petición :(")
+                return;
+            }
+            setStatus(reason.response.data.message)
+        });
+
+
+    }
 
     return (
         <section className={"login-section"}>
-            <form className={"login-form"}>
+            <form className={"login-form"} onSubmit={handleFormSubmit}>
                 <h2 className={"important-text "}>Inicio de Sesión</h2>
 
+                {status && (
+                    <div className="alert alert-danger" role="alert">
+                        {status}
+                    </div>
+                )}
                 <div className="form-outline mb-4">
-                    <label className="form-label" htmlFor="email-input">Email</label>
-                    <input type="email" id="email-input" className="form-control"/>
+                    <label className="form-label" htmlFor="username-input">Usuario</label>
+                    <input type="text" id="username-input" className="form-control" required={true} onChange={handleusernameChange}/>
                 </div>
 
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="password-input">Contraseña</label>
-                    <input type="password" id="password-input" className="form-control"/>
+                    <input type="password" id="password-input" className="form-control" required={true} onChange={ handlePasswordChange}/>
                 </div>
 
                 <div className="row mb-4">
