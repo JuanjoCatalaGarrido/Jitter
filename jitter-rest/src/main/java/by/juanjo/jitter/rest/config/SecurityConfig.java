@@ -56,7 +56,6 @@ public @Data class SecurityConfig {
             .requestMatchers(new AntPathRequestMatcher("/doc/swagger-ui/**"),
                 new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
             .anyRequest().authenticated()
-            .anyRequest().permitAll()
         )
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
