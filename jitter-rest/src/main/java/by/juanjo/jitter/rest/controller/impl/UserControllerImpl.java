@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.controller.impl;
 
+import by.juanjo.jitter.core.dto.UserDTO;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.dto.filter.UserFilterDTO;
@@ -56,34 +57,34 @@ public class UserControllerImpl implements UserController {
   }
 
   @ApiResponse(responseCode = "201", description = "User created successfully", content = {
-      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = UserDTO.class))})
   @ApiResponse(responseCode = "400", description = "Provided user is null", content = {
       @Content(schema = @Schema())})
   @PostMapping
   @Override
-  public ResponseEntity<UserSummaryDTO> create(@RequestBody @NotNull UserSummaryDTO userDTO) {
+  public ResponseEntity<UserDTO> create(@RequestBody @NotNull UserDTO userDTO) {
     User newUser = userMapper.toEntity(userDTO);
     User savedUser = this.userService.save(newUser);
 
-    UserSummaryDTO savedUserDTO = this.userMapper.toUserSummaryDTO(savedUser);
+    UserDTO savedUserDTO = this.userMapper.toDTO(savedUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
   }
 
   @ApiResponse(responseCode = "404", description = "User not found", content = {
       @Content(schema = @Schema())})
   @ApiResponse(responseCode = "200", description = "User found", content = {
-      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = UserDTO.class))})
   @Parameter(name = "id", description = "The user's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<UserSummaryDTO> read(@PathVariable Long id)
+  public ResponseEntity<UserDTO> read(@PathVariable Long id)
       throws ElementNotFoundException {
     Optional<User> possiblyFoundUser = this.userService.findById(id);
 
     User user = possiblyFoundUser.orElseThrow(
         () -> new ElementNotFoundException(String.format("Couldn't find user with id: %d", id)));
 
-    UserSummaryDTO userDTO = this.userMapper.toUserSummaryDTO(user);
+    UserDTO userDTO = this.userMapper.toDTO(user);
     return ResponseEntity.ok(userDTO);
   }
 
@@ -94,7 +95,7 @@ public class UserControllerImpl implements UserController {
   @Parameter(name = "id", description = "The user's id", example = "1", required = true)
   @Override
   @PutMapping("/{id}")
-  public ResponseEntity<UserSummaryDTO> update(@RequestBody @NotNull UserSummaryDTO newUserDTO,
+  public ResponseEntity<UserDTO> update(@RequestBody @NotNull UserDTO newUserDTO,
       @PathVariable Long id) {
     Optional<User> possiblyFoundUser = this.userService.findById(id);
     if (possiblyFoundUser.isEmpty()) {
@@ -108,7 +109,7 @@ public class UserControllerImpl implements UserController {
 
     User updatedUser = this.userService.save(userToBeUpdated);
 
-    UserSummaryDTO userDTO = this.userMapper.toUserSummaryDTO(updatedUser);
+    UserDTO userDTO = this.userMapper.toDTO(updatedUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
   }
 
@@ -131,12 +132,12 @@ public class UserControllerImpl implements UserController {
       @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
   @Override
   @GetMapping
-  public ResponseEntity<List<UserSummaryDTO>> getAll() {
+  public ResponseEntity<List<UserDTO>> getAll() {
     Iterable<User> users = this.userService.findAll();
 
     final boolean CONCURRENT_FLAG = false;
-    List<UserSummaryDTO> allUsersDTO = StreamSupport.stream(users.spliterator(), CONCURRENT_FLAG)
-        .map(this.userMapper::toUserSummaryDTO).toList();
+    List<UserDTO> allUsersDTO = StreamSupport.stream(users.spliterator(), CONCURRENT_FLAG)
+        .map(this.userMapper::toDTO).toList();
 
     return ResponseEntity.ok(allUsersDTO);
   }
@@ -146,14 +147,14 @@ public class UserControllerImpl implements UserController {
   @Parameter(name = "page", description = "The page number", example = "0", required = true)
   @Override
   @GetMapping("/paginate/{page}")
-  public ResponseEntity<Page<UserSummaryDTO>> getAllPaginated(
+  public ResponseEntity<Page<UserDTO>> getAllPaginated(
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable usersSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
         Sort.by(User_.USERNAME).descending());
 
-    Page<UserSummaryDTO> page = this.userService.findAll(usersSortedByNameDesc)
-        .map(this.userMapper::toUserSummaryDTO);
+    Page<UserDTO> page = this.userService.findAll(usersSortedByNameDesc)
+        .map(this.userMapper::toDTO);
 
     return ResponseEntity.ok(page);
   }
@@ -192,6 +193,23 @@ public class UserControllerImpl implements UserController {
     return ResponseEntity.ok(userDTO);
   }
 
+  @ApiResponse(responseCode = "404", description = "User not found", content = {
+      @Content(schema = @Schema())})
+  @ApiResponse(responseCode = "200", description = "User found", content = {
+      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+  @Parameter(name = "id", description = "The users's id", example = "1", required = true)
+  @GetMapping("/{id}/summary")
+  @Override
+  public ResponseEntity<UserSummaryDTO> serveUserSummary(
+      @PathVariable(value = "id") Long id) throws ElementNotFoundException {
+    Optional<User> possiblyFoundUser = this.userService.findById(id);
+
+    User user = possiblyFoundUser.orElseThrow(
+        () -> new ElementNotFoundException(String.format("Couldn't find user with id: %d", id)));
+
+    UserSummaryDTO userDTO = this.userMapper.toUserSummaryDTO(user);
+    return ResponseEntity.ok(userDTO);
+  }
 
   @GetMapping("/{id}/followers")
   public ResponseEntity<List<MinimalUserFollowerDTO>> followers(@PathVariable Long id) {
@@ -201,15 +219,6 @@ public class UserControllerImpl implements UserController {
         .map(this.userFollowerMapper::toMinimalDTO).toList();
 
     return ResponseEntity.ok(followers);
-  }
-
-  @PostMapping("/{id}/followers/{followerId}")
-  public ResponseEntity<?> addFollower(@PathVariable Long id,
-      @PathVariable Long followerId) {
-
-    this.userService.addFollower(id, followerId);
-
-    return ResponseEntity.ok().build();
   }
 
 

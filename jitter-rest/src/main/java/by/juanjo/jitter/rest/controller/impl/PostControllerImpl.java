@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.controller.impl;
 
+import by.juanjo.jitter.core.dto.PostDTO;
 import by.juanjo.jitter.core.dto.PostDetailsDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Post;
@@ -47,16 +48,16 @@ public class PostControllerImpl implements PostController {
   }
 
   @ApiResponse(responseCode = "201", description = "Post created successfully", content = {
-      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = PostDTO.class))})
   @ApiResponse(responseCode = "400", description = "Provided post is null", content = {
       @Content(schema = @Schema())})
   @PostMapping
   @Override
-  public ResponseEntity<PostSummaryDTO> create(@RequestBody @NotNull PostSummaryDTO postDTO) {
+  public ResponseEntity<PostDTO> create(@RequestBody @NotNull PostDTO postDTO) {
     Post newPost = postMapper.toEntity(postDTO);
     Post savedPost = this.postService.save(newPost);
 
-    PostSummaryDTO savedPostDTO = this.postMapper.toPostSummaryDTO(savedPost);
+    PostDTO savedPostDTO = this.postMapper.toDTO(savedPost);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedPostDTO);
   }
 
@@ -64,29 +65,29 @@ public class PostControllerImpl implements PostController {
   @ApiResponse(responseCode = "404", description = "Post not found", content = {
       @Content(schema = @Schema())})
   @ApiResponse(responseCode = "200", description = "Post found", content = {
-      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = PostDTO.class))})
   @Parameter(name = "id", description = "The post's id", example = "1", required = true)
   @GetMapping("/{id}")
   @Override
-  public ResponseEntity<PostSummaryDTO> read(@PathVariable Long id)
+  public ResponseEntity<PostDTO> read(@PathVariable Long id)
       throws ElementNotFoundException {
     Optional<Post> possiblyFoundPost = this.postService.findById(id);
 
     Post post = possiblyFoundPost.orElseThrow(
         () -> new ElementNotFoundException(String.format("Couldn't find post with id: %d", id)));
 
-    PostSummaryDTO postDTO = this.postMapper.toPostSummaryDTO(post);
+    PostDTO postDTO = this.postMapper.toDTO(post);
     return ResponseEntity.ok(postDTO);
   }
 
   @ApiResponse(responseCode = "404", description = "Post not found", content = {
       @Content(schema = @Schema())})
   @ApiResponse(responseCode = "201", description = "Post updated successfully", content = {
-      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = PostDTO.class))})
   @Parameter(name = "id", description = "The post's id", example = "1", required = true)
   @Override
   @PutMapping("/{id}")
-  public ResponseEntity<PostSummaryDTO> update(@RequestBody @NotNull PostSummaryDTO newPostDTO,
+  public ResponseEntity<PostDTO> update(@RequestBody @NotNull PostDTO newPostDTO,
       @PathVariable Long id) {
     Optional<Post> possiblyFoundPost = this.postService.findById(id);
     if (possiblyFoundPost.isEmpty()) {
@@ -100,7 +101,7 @@ public class PostControllerImpl implements PostController {
 
     Post updatedPost = this.postService.save(postToBeUpdated);
 
-    PostSummaryDTO postDTO = this.postMapper.toPostSummaryDTO(updatedPost);
+    PostDTO postDTO = this.postMapper.toDTO(updatedPost);
     return ResponseEntity.status(HttpStatus.CREATED).body(postDTO);
   }
 
@@ -120,15 +121,15 @@ public class PostControllerImpl implements PostController {
   }
 
   @ApiResponse(responseCode = "200", description = "Posts retrieved successfully", content = {
-      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+      @Content(schema = @Schema(implementation = PostDTO.class))})
   @Override
   @GetMapping
-  public ResponseEntity<List<PostSummaryDTO>> getAll() {
+  public ResponseEntity<List<PostDTO>> getAll() {
     Iterable<Post> posts = this.postService.findAll();
 
     final boolean CONCURRENT_FLAG = false;
-    List<PostSummaryDTO> allPostsDTO = StreamSupport.stream(posts.spliterator(), CONCURRENT_FLAG)
-        .map(this.postMapper::toPostSummaryDTO).toList();
+    List<PostDTO> allPostsDTO = StreamSupport.stream(posts.spliterator(), CONCURRENT_FLAG)
+        .map(this.postMapper::toDTO).toList();
 
     return ResponseEntity.ok(allPostsDTO);
   }
@@ -138,19 +139,39 @@ public class PostControllerImpl implements PostController {
   @Parameter(name = "page", description = "The page number", example = "0", required = true)
   @Override
   @GetMapping("/paginate/{page}")
-  public ResponseEntity<Page<PostSummaryDTO>> getAllPaginated(
+  public ResponseEntity<Page<PostDTO>> getAllPaginated(
       @PathVariable(value = "page") Integer pageNumber) {
     final int ELEMENTS_COUNT = 3;
     Pageable postsSortedByNameDesc = PageRequest.of(pageNumber, ELEMENTS_COUNT,
         Sort.by(Post_.CREATED_AT).descending());
 
-    Page<PostSummaryDTO> page = this.postService.findAll(postsSortedByNameDesc)
-        .map(this.postMapper::toPostSummaryDTO);
+    Page<PostDTO> page = this.postService.findAll(postsSortedByNameDesc)
+        .map(this.postMapper::toDTO);
 
     return ResponseEntity.ok(page);
   }
 
   // ----------------------------------------------------------
+
+
+  @ApiResponse(responseCode = "404", description = "Post not found", content = {
+      @Content(schema = @Schema())})
+  @ApiResponse(responseCode = "200", description = "Post found", content = {
+      @Content(schema = @Schema(implementation = PostSummaryDTO.class))})
+  @Parameter(name = "id", description = "The post's id", example = "1", required = true)
+  @GetMapping("/{id}/summary")
+  @Override
+  public ResponseEntity<PostSummaryDTO> servePostSummary(@PathVariable Long id)
+      throws ElementNotFoundException {
+    Optional<Post> possiblyFoundPost = this.postService.findById(id);
+
+    Post post = possiblyFoundPost.orElseThrow(
+        () -> new ElementNotFoundException(String.format("Couldn't find post with id: %d", id)));
+
+    PostSummaryDTO postDTO = this.postMapper.toPostSummaryDTO(post);
+    return ResponseEntity.ok(postDTO);
+  }
+
 
   @ApiResponse(responseCode = "404", description = "Post not found", content = {
       @Content(schema = @Schema())})
@@ -178,11 +199,11 @@ public class PostControllerImpl implements PostController {
   @Parameter(name = "id", description = "The user ID", example = "0", required = true)
   @Override
   @GetMapping("/fromUser/{id}")
-  public ResponseEntity<List<PostSummaryDTO>> servePostsByUserId(
+  public ResponseEntity<List<PostDTO>> servePostsByUserId(
       @PathVariable(value = "id") @NotNull Long userID) {
 
-    List<PostSummaryDTO> posts = this.postService.findByOwnerId(userID).stream()
-        .map(this.postMapper::toPostSummaryDTO).toList();
+    List<PostDTO> posts = this.postService.findByOwnerId(userID).stream()
+        .map(this.postMapper::toDTO).toList();
 
     if (posts.isEmpty()) {
       return ResponseEntity.noContent().build();

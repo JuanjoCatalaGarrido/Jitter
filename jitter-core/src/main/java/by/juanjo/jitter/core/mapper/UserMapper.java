@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.mapper;
 
+import by.juanjo.jitter.core.dto.UserDTO;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.dto.auth.RegisterRequestDTO;
@@ -25,7 +26,9 @@ public interface UserMapper {
 
   public MinimalUserDTO toMinimalUserDTO(User entity);
 
-  public MinimalUserDTO toRegisterRequestDTO(User entity);
+  public RegisterRequestDTO toRegisterRequestDTO(User entity);
+
+  public UserDTO toDTO(User entity);
 
 
   public User toEntity(UserSummaryDTO dto);
@@ -35,5 +38,7 @@ public interface UserMapper {
   public User toEntity(MinimalUserDTO dto);
 
   public User toEntity(RegisterRequestDTO dto);
+
+  public User toEntity(UserDTO dto);
 
 }

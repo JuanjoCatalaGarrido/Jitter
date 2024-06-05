@@ -1,5 +1,6 @@
 package by.juanjo.jitter.core.mapper;
 
+import by.juanjo.jitter.core.dto.PostDTO;
 import by.juanjo.jitter.core.dto.PostDetailsDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
@@ -21,12 +22,16 @@ public interface PostMapper {
 
   public MinimalPostDTO toMinimalDTO(Post entity);
 
+  public PostDTO toDTO(Post entity);
+
 
   public Post toEntity(PostSummaryDTO dto);
 
   public Post toEntity(PostDetailsDTO dto);
 
   public Post toEntity(MinimalPostDTO dto);
+
+  public Post toEntity(PostDTO dto);
 
 
 }
