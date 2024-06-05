@@ -1,5 +1,6 @@
 package by.juanjo.jitter.rest.controller.impl;
 
+import by.juanjo.jitter.core.dto.PostDTO;
 import by.juanjo.jitter.core.dto.PostSummaryDTO;
 import by.juanjo.jitter.core.entity.Post;
 import by.juanjo.jitter.core.entity.Post_;
@@ -36,9 +37,9 @@ public class FeedControllerImpl implements FeedController {
 
   @Override
   @GetMapping("/posts/forUser/{userId}")
-  public ResponseEntity<Set<PostSummaryDTO>> servePosts(@PathVariable Long userId) {
+  public ResponseEntity<Set<PostDTO>> servePosts(@PathVariable Long userId) {
     List<Post> posts = this.feedService.servePostToUser(userId);
-    Set<PostSummaryDTO> postsAsDTO = posts.stream().map(this.postMapper::toPostSummaryDTO)
+    Set<PostDTO> postsAsDTO = posts.stream().map(this.postMapper::toDTO)
         .collect(Collectors.toUnmodifiableSet());
 
     return ResponseEntity.ok(postsAsDTO);
@@ -46,15 +47,15 @@ public class FeedControllerImpl implements FeedController {
 
   @Override
   @GetMapping("/posts/forUser/{userId}/paginated/{page}")
-  public ResponseEntity<Page<PostSummaryDTO>> servePostsPaginated(@PathVariable Long userId,
+  public ResponseEntity<Page<PostDTO>> servePostsPaginated(@PathVariable Long userId,
       @PathVariable(value = "page") Integer pageNumber,
       @RequestParam(required = false, defaultValue = "10") Integer numElements) {
 
     Pageable postsSortedByCreatedAtDesc = PageRequest.of(pageNumber, numElements,
         Sort.by(Post_.CREATED_AT).descending());
 
-    Page<PostSummaryDTO> posts = this.feedService.servePostToUser(userId,
-        postsSortedByCreatedAtDesc).map(this.postMapper::toPostSummaryDTO);
+    Page<PostDTO> posts = this.feedService.servePostToUser(userId,
+        postsSortedByCreatedAtDesc).map(this.postMapper::toDTO);
 
     return ResponseEntity.ok(posts);
   }
