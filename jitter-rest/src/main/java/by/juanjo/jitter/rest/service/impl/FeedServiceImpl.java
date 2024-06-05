@@ -12,6 +12,8 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,11 @@ public class FeedServiceImpl implements FeedService {
   @Override
   public List<Post> servePostToUser(Long userId) {
     return this.postService.findAll(postsByUserFollowers(userId));
+  }
+
+  @Override
+  public Page<Post> servePostToUser(Long userId, Pageable pageable) {
+    return this.postService.findAll(postsByUserFollowers(userId), pageable);
   }
 
   public static Specification<Post> postsByUserFollowers(Long userId) {
