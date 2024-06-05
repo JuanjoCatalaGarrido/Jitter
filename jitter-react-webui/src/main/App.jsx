@@ -15,7 +15,6 @@ import {AuthProvider} from "./hooks/authentication";
 export function App() {
   return (
       <StrictMode>
-          <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage/>}/>
@@ -28,7 +27,6 @@ export function App() {
             }/>
           </Routes>
         </BrowserRouter>
-          </AuthProvider>
       </StrictMode>
   );
 }
