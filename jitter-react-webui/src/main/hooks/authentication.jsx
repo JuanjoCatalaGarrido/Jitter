@@ -7,11 +7,12 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
     const [token, setToken] = useState(localStorage.getItem("auth_token"));
     const [userId, setUserId] = useState(null);
+    const [username, setUsername] = useState(null);
 
-    function extractUserIdFromToken(token) {
+    function extractUsernameInfoFromToken(token) {
         try {
             const decodedToken = jwtDecode(token);
-            return decodedToken.sub;
+            return [decodedToken.sub, decodedToken.username];
         } catch (error) {
             console.error("Error decoding token:", error);
             return null;
@@ -22,7 +23,11 @@ export function AuthProvider({ children }) {
         if (token) {
             axios.defaults.headers.common["Authorization"] = "Bearer " + token;
             localStorage.setItem('auth_token',token);
-            setUserId(extractUserIdFromToken(token))
+
+            let [userId, username] = extractUsernameInfoFromToken(token);
+            setUserId(userId);
+            setUsername(username);
+
         } else {
             delete axios.defaults.headers.common["Authorization"];
             localStorage.removeItem('auth_token')
@@ -34,8 +39,9 @@ export function AuthProvider({ children }) {
             token,
             setToken,
             userId,
+            username
         }),
-        [token, userId]
+        [token, userId, username]
     );
 
     return (
