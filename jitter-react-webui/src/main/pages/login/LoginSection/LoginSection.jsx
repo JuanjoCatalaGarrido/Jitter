@@ -10,8 +10,8 @@ export function LoginSection(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [status, setStatus] = useState(undefined);
-    const {token, setToken} = useAuth();
+    const [error, setError] = useState(null);
+    const {token, setToken} = useAuth(null);
 
     function handleusernameChange (e){
         setUsername(e.target.value);
@@ -32,15 +32,15 @@ export function LoginSection(){
         axios.post(resolveEndpoint("/api/auth/login"), body)
             .then((response) => {
                 setToken(response.data.token);
-                setStatus(undefined);
+                setError(null);
 
                 navigate("/dashboard");
             }).catch((reason) => {
             if(!reason.response){
-                setStatus("No se pudo relizar la petición :(")
+                setError("No se pudo relizar la petición :(")
                 return;
             }
-            setStatus(reason.response.data.message)
+            setError(reason.response.data.message)
         });
 
 
@@ -51,9 +51,9 @@ export function LoginSection(){
             <form className={"login-form"} onSubmit={handleFormSubmit}>
                 <h2 className={"important-text "}>Inicio de Sesión</h2>
 
-                {status && (
+                {error && (
                     <div className="alert alert-danger" role="alert">
-                        {status}
+                        {error}
                     </div>
                 )}
                 <div className="form-outline mb-4">
