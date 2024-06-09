@@ -1,3 +1,3 @@
 
 export const API_HOSTNAME = "localhost";
-export const API_PORT = 9000;
+export const API_PORT = 8082;
