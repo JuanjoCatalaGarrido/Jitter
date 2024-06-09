@@ -1,0 +1,65 @@
+@import '../../layout';
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  padding: 0.5rem;
+  border: 1px solid $secondary-text-color;
+
+  .post-main {
+    display: flex;
+    flex-direction: row;
+
+    .user-img-container {
+      flex-basis: 10%;
+    }
+
+    .post-content {
+      flex-basis: 90%;
+
+      display: flex;
+      flex-direction: column;
+
+      .post-content-first-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .post-content-username{
+          align-self: flex-start;
+        }
+        .post-content-timestamp{
+          align-self: flex-end;
+          color: $secondary-text-color;
+        }
+      }
+
+      .post-content-body {
+
+      }
+    }
+  }
+
+  .post-options{
+    .options-container{
+
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+
+
+.clickable-icon {
+  cursor: pointer; /* Cambia el cursor a mano al pasar por el icono */
+  transition: transform 0.2s, color 0.2s; /* Transición para efectos de hover */
+
+  &:hover {
+    transform: scale(1.2); /* Aumenta ligeramente el tamaño */
+    color: #007BFF; /* Cambia el color al pasar el mouse (puedes cambiar el color al que prefieras) */
+  }
+}
