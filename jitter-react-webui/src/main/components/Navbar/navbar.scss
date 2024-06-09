@@ -11,7 +11,7 @@ nav {
 }
 
 .nav-img-container {
-  flex-basis: 50%;
+  flex-basis: 30%;
   justify-content: flex-start;
 
   img {
@@ -20,7 +20,7 @@ nav {
 }
 
 .nav-menu-container {
-  flex-basis: 50%;
+  flex-basis: 70%;
 
   display: flex;
   gap: 1rem;
@@ -31,4 +31,19 @@ nav {
 
 .menu-separator {
   color: $secondary-text-color;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  justify-content: center;
+  align-items: center;
+
+
+  .profile-pic-container {
+    border-radius: 50%;
+    overflow: auto;
+  }
 }

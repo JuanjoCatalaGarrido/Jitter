@@ -1,9 +1,9 @@
 import './navbarItem.scss';
 
-export function NavbarItem({children, href=""}){
+export function NavbarItem({children, className, onClickHandle, href=""}){
     return (
-        <span className={"navbar-item"}>
-            <a href={href}>{children}</a>
+        <span onClick={onClickHandle} className={`navbar-item`}>
+            <a className={className} href={href}>{children}</a>
         </span>
     );
 }
