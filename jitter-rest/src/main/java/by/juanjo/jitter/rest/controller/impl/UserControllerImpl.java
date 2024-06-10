@@ -163,12 +163,12 @@ public class UserControllerImpl implements UserController {
       @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
   @PostMapping("/filter")
   @Override
-  public ResponseEntity<List<UserSummaryDTO>> filter(@RequestBody @NotNull UserFilterDTO dto) {
+  public ResponseEntity<List<UserDTO>> filter(@RequestBody @NotNull UserFilterDTO dto) {
 
     Specification<User> filterCriteria = dto.provideFilterSpecification();
 
     List<User> result = this.userService.findAll(filterCriteria);
-    List<UserSummaryDTO> resultAsDTO = result.stream().map(this.userMapper::toUserSummaryDTO)
+    List<UserDTO> resultAsDTO = result.stream().map(this.userMapper::toDTO)
         .toList();
 
     return ResponseEntity.ok(resultAsDTO);

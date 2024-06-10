@@ -35,6 +35,15 @@ public @Data class UserDTO implements Serializable {
   private Set<ReportDTO> reports = Collections.emptySet();
   private Set<InteractionDTO> interactions = Collections.emptySet();
 
+
+  public Integer getFollowersCount() {
+    return this.followers.size();
+  }
+
+  public Integer getFollowsCount() {
+    return this.follows.size();
+  }
+
   @JsonProperty(access = Access.READ_ONLY)
   public Long getId() {
     return this.id;

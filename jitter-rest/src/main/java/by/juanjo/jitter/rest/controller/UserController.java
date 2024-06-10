@@ -16,7 +16,7 @@ public interface UserController extends CRUDController<UserDTO, Long> {
 
   public ResponseEntity<UserSummaryDTO> serveUserSummary(Long id);
 
-  public ResponseEntity<List<UserSummaryDTO>> filter(@NotNull UserFilterDTO dto);
+  public ResponseEntity<List<UserDTO>> filter(@NotNull UserFilterDTO dto);
 
 
   public ResponseEntity<List<MinimalUserFollowerDTO>> followers(Long userId);

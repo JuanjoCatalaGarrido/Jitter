@@ -7,6 +7,7 @@ import by.juanjo.jitter.core.dto.auth.RegisterRequestDTO;
 import by.juanjo.jitter.core.dto.minimal.MinimalUserDTO;
 import by.juanjo.jitter.core.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {
@@ -20,6 +21,8 @@ public interface UserMapper {
   UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
 
+  @Mapping(target = "followersCount", expression = "java(entity.getFollowers() != null ? entity.getFollowers().size() : 0)")
+  @Mapping(target = "followsCount", expression = "java(entity.getFollows() != null ? entity.getFollows().size() : 0)")
   public UserSummaryDTO toUserSummaryDTO(User entity);
 
   public UserDetailsDTO toUserDetailsDTO(User entity);
