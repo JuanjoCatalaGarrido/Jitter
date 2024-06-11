@@ -60,6 +60,16 @@ public @Data class User implements Serializable {
   @ToString.Exclude
   private UserPreference userPreferences;
 
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Set<Post> userPosts;
+
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  private Set<Comment> userComments;
+  
   @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
