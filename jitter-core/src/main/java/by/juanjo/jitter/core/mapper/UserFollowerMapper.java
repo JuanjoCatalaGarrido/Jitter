@@ -1,6 +1,7 @@
 package by.juanjo.jitter.core.mapper;
 
 import by.juanjo.jitter.core.dto.UserFollowerDTO;
+import by.juanjo.jitter.core.dto.minimal.MinimalUserFollowerDTO;
 import by.juanjo.jitter.core.entity.UserFollower;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -13,5 +14,9 @@ public interface UserFollowerMapper {
 
   public UserFollowerDTO toDTO(UserFollower entity);
 
+  public MinimalUserFollowerDTO toMinimalDTO(UserFollower entity);
+
   public UserFollower toEntity(UserFollowerDTO dto);
+
+  public UserFollower toEntity(MinimalUserFollowerDTO dto);
 }

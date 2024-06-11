@@ -2,22 +2,27 @@ package by.juanjo.jitter.rest.controller.impl;
 
 import by.juanjo.jitter.core.dto.UserDTO;
 import by.juanjo.jitter.core.dto.UserDetailsDTO;
+import by.juanjo.jitter.core.dto.UserFollowerDTO;
 import by.juanjo.jitter.core.dto.UserSummaryDTO;
 import by.juanjo.jitter.core.dto.filter.UserFilterDTO;
 import by.juanjo.jitter.core.dto.minimal.MinimalUserFollowerDTO;
 import by.juanjo.jitter.core.entity.User;
+import by.juanjo.jitter.core.entity.UserFollower;
 import by.juanjo.jitter.core.entity.User_;
 import by.juanjo.jitter.core.mapper.UserFollowerMapper;
 import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.UserController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
+import by.juanjo.jitter.rest.service.UserFollowerService;
 import by.juanjo.jitter.rest.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.constraints.NotNull;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.BeanUtils;
@@ -29,9 +34,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,13 +52,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserControllerImpl implements UserController {
 
   private final UserService userService;
+  private final UserFollowerService userFollowerService;
+
   private final UserMapper userMapper;
   private final UserFollowerMapper userFollowerMapper;
 
   @Autowired
-  public UserControllerImpl(UserService userService, UserMapper userMapper,
-      UserFollowerMapper userFollowerMapper) {
+  public UserControllerImpl(UserService userService, UserFollowerService userFollowerService,
+      UserMapper userMapper, UserFollowerMapper userFollowerMapper) {
     this.userService = userService;
+    this.userFollowerService = userFollowerService;
     this.userMapper = userMapper;
     this.userFollowerMapper = userFollowerMapper;
   }
@@ -112,6 +122,27 @@ public class UserControllerImpl implements UserController {
     UserDTO userDTO = this.userMapper.toDTO(updatedUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
   }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<UserDTO> updatePartially(@PathVariable Long id,
+      @RequestBody Map<String, Object> updates) {
+    User user = this.userService.findById(id)
+        .orElseThrow(() -> new ElementNotFoundException("Not found user with ID: " + id));
+
+    updates.forEach((key, value) -> {
+      Field field = ReflectionUtils.findField(User.class, key);
+      if (field != null) {
+        field.setAccessible(true);
+        ReflectionUtils.setField(field, user, value);
+      }
+    });
+
+    User updatedUser = userService.save(user);
+    UserDTO updatedUserDTO = this.userMapper.toDTO(updatedUser);
+
+    return ResponseEntity.ok(updatedUserDTO);
+  }
+
 
   @ApiResponse(responseCode = "404", description = "User not found", content = {
       @Content(schema = @Schema())})
@@ -221,7 +252,6 @@ public class UserControllerImpl implements UserController {
     return ResponseEntity.ok(followers);
   }
 
-
   @GetMapping("/{id}/follows")
   public ResponseEntity<List<MinimalUserFollowerDTO>> follows(@PathVariable Long id) {
     User user = this.userService.findById(id)
@@ -230,6 +260,22 @@ public class UserControllerImpl implements UserController {
         .map(this.userFollowerMapper::toMinimalDTO).toList();
 
     return ResponseEntity.ok(followers);
+  }
+
+  @GetMapping("/{id}/addFollow/{followerId}")
+  public ResponseEntity<UserFollowerDTO> addFollow(@PathVariable Long id,
+      @PathVariable Long followerId) {
+
+    UserFollower follow = this.userFollowerService.addFollower(id, followerId);
+    return ResponseEntity.ok(this.userFollowerMapper.toDTO(follow));
+  }
+
+  @GetMapping("/{id}/removeFollow/{followerId}")
+  public ResponseEntity<UserFollowerDTO> removeFollow(@PathVariable Long id,
+      @PathVariable Long followerId) {
+
+    this.userFollowerService.removeFollower(id, followerId);
+    return ResponseEntity.ok().build();
   }
 
 
