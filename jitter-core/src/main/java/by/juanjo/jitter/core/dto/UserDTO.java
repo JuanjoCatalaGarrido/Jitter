@@ -1,7 +1,6 @@
 package by.juanjo.jitter.core.dto;
 
 import by.juanjo.jitter.core.dto.minimal.MinimalEmailVerificationCodeDTO;
-import by.juanjo.jitter.core.dto.minimal.MinimalPostDTO;
 import by.juanjo.jitter.core.dto.minimal.MinimalRoleDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,7 +26,7 @@ public @Data class UserDTO implements Serializable {
   private Set<MinimalRoleDTO> roles = Collections.emptySet();
   private UserPreferenceDTO userPreferences;
   private Set<CommentDTO> userComments = Collections.emptySet();
-  private Set<MinimalPostDTO> userPosts = Collections.emptySet();
+  private Set<PostDTO> userPosts = Collections.emptySet();
   private Set<UserFollowerDTO> followers = Collections.emptySet();
   private Set<UserFollowerDTO> follows = Collections.emptySet();
   private Set<MinimalEmailVerificationCodeDTO> verificationCodes = Collections.emptySet();
