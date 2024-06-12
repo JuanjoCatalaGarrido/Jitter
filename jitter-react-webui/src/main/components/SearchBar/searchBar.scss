@@ -1,0 +1,31 @@
+@import "../../layout";
+
+.search-bar {
+  width: 40%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+
+  input {
+    flex-basis: 95%;
+    border: 1px solid $third-color;
+    border-radius: 0.2rem;
+  }
+
+  .search-icon-container {
+    flex-basis: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.2rem;
+
+    .iconify {
+      color: white;
+    }
+  }
+
+}
