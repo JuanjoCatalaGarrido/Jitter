@@ -15,5 +15,5 @@ public interface EmailVerificationCodeRepository extends JpaRepository<EmailVeri
 
   public Optional<EmailVerificationCode> findFirstByUserIdOrderByCreatedAt(Long id);
 
-  public List<EmailVerificationCode> findByCode(Integer code);
+  public List<EmailVerificationCode> findByCode(String code);
 }
