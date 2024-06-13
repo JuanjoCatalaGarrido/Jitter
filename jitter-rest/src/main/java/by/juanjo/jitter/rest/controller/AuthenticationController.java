@@ -11,4 +11,6 @@ public interface AuthenticationController {
   public ResponseEntity<Object> login(@NotNull LoginRequestDTO dto);
 
   public ResponseEntity<Object> register(@NotNull RegisterRequestDTO dto);
+
+  public ResponseEntity<Object> validateCode(Long userId, String code);
 }

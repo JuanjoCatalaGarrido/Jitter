@@ -41,7 +41,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     final boolean HTML_FLAG = true;
     final String body = String.format("""
         Haz click en el siguiente enlace para proceder a verificar tu cuenta! <br/>
-        <a href='http://localhost:8082/auth/verifyAccount/%d?code=%s'>Verifica tu cuenta</a>
+        <a href='http://localhost:8082/api/auth/verifyAccount/%d?code=%s'>Verifica tu cuenta</a>
         """, userId, verificationCode);
     helper.setText(body, HTML_FLAG);
 

@@ -7,6 +7,7 @@ import by.juanjo.jitter.core.entity.EmailVerificationCode;
 import by.juanjo.jitter.core.entity.User;
 import by.juanjo.jitter.core.mapper.UserMapper;
 import by.juanjo.jitter.rest.controller.AuthenticationController;
+import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.AuthenticationService;
 import by.juanjo.jitter.rest.service.EmailSenderService;
 import by.juanjo.jitter.rest.service.EmailVerificationCodeService;
@@ -24,9 +25,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -88,7 +92,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
   @ApiResponse(responseCode = "201", description = "User created successfully", content = {
       @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
-  @ApiResponse(responseCode = "400", description = "Provided user is null", content = {
+  @ApiResponse(responseCode = "500", description = "Failed creating the user or sending the verification mail", content = {
       @Content(schema = @Schema())})
   @PostMapping("/register")
   @Override
@@ -117,5 +121,29 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
     UserSummaryDTO savedUserDTO = this.userMapper.toUserSummaryDTO(savedUser);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
+  }
+
+  @ApiResponse(responseCode = "201", description = "User created successfully", content = {
+      @Content(schema = @Schema(implementation = UserSummaryDTO.class))})
+  @ApiResponse(responseCode = "500", description = "Failed creating the user or sending the verification mail", content = {
+      @Content(schema = @Schema())})
+  @GetMapping("/verifyAccount/{id}")
+  @Override // verifyAccount/%d?code=%s'
+  public ResponseEntity<Object> validateCode(@PathVariable(value = "id") Long userId,
+      @RequestParam(required = true) String code) {
+
+    EmailVerificationCode codeFromDDBB = this.emailVerificationCodeService.findLatestByUserId(
+            userId)
+        .orElseThrow(() -> new ElementNotFoundException("User id null"));
+
+    if (!codeFromDDBB.getCode().equals(code.trim())) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Code does not match");
+    }
+
+    User user = codeFromDDBB.getUser();
+    user.setEnabled(true);
+    this.userService.save(user);
+
+    return ResponseEntity.ok().build();
   }
 }
