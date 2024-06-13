@@ -11,7 +11,7 @@ public @Data class EmailVerificationCodeDTO implements Serializable {
 
   private Long id;
   private MinimalUserDTO user;
-  private Integer code;
+  private String code;
   private Timestamp createdAt;
 
   @JsonProperty(access = Access.READ_ONLY)
