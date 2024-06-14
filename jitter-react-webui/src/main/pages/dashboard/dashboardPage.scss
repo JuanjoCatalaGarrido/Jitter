@@ -1,0 +1,49 @@
+@import "../../layout";
+
+.dashboard {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-areas:
+    "nav        nav  nav  nav"
+    "aside-left main main aside-right"
+    "aside-left main main aside-right"
+    "aside-left main main aside-right"
+    "aside-left main main aside-right";
+  grid-template-rows: auto 1fr 1fr  auto;
+  grid-template-columns: 1fr 1.5fr 1.5fr 1fr;
+
+
+  .alert {
+    width: 100%;
+  }
+}
+
+nav {
+  grid-area: nav;
+}
+
+.dashboard-section {
+  grid-area: main;
+}
+
+.right-aside {
+  grid-area: aside-right;
+  display: flex;
+  flex-direction: column;
+  border-left:  1px solid $secondary-text-color;
+
+  h3 {
+    text-align: center;
+  }
+
+  .tags-container{
+
+  }
+}
+
+.left-aside {
+  grid-area: aside-left;
+  border-right:  1px solid $secondary-text-color;
+}

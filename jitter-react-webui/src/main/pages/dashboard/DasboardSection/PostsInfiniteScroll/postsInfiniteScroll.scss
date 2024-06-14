@@ -1,16 +1,11 @@
 @import '../../../../layout';
 
-.infinite-scroll-component__outerdiv, .infinite-scroll-component {
-  height: 100% !important;
+
+#scrollableContainer{
+  overflow: auto;
+  height: 30rem;
 }
 
-.posts-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
 
 .no-more-feed-message, .loading-message{
   text-align: center;
