@@ -11,9 +11,12 @@ html, body, #react {
 
 $primary-color: white;
 $secondary-color: #00A9FF;
+$third-color: #89CFF3;
 
 $primary-text-color: black;
 $secondary-text-color: #464853;
+$third-text-color: #89CFF3;
+
 $third-text-color: white;
 $highlight-text-color: #00A9FF;
 
@@ -24,6 +27,10 @@ $highlight-text-color: #00A9FF;
 .secondary-bg-color {
   background-color: $secondary-color !important;
 }
+.third-bg-color {
+  background-color: $third-color !important;
+}
+
 
 .primary-text-color {
   color: $primary-text-color !important;
@@ -36,6 +43,11 @@ $highlight-text-color: #00A9FF;
 .highlight-text-color {
   color: $highlight-text-color !important;
 }
+
+.highlight2-text-color {
+  color: $third-color !important;
+}
+
 
 .important-text {
   color: $primary-text-color!important;
@@ -57,4 +69,8 @@ $highlight-text-color: #00A9FF;
   font-size: 1.5rem;
   color: #464853;
   font-weight: 900;
+}
+
+.iconify {
+  cursor: pointer;
 }
