@@ -132,6 +132,7 @@ public class TagControllerImpl implements TagController {
     return ResponseEntity.ok(allTagsDTO);
   }
 
+
   @ApiResponse(responseCode = "200", description = "Page retrieved successfully", content = {
       @Content(schema = @Schema(implementation = Page.class))})
   @Parameter(name = "page", description = "The page number", example = "0", required = true)
@@ -148,5 +149,19 @@ public class TagControllerImpl implements TagController {
 
     return ResponseEntity.ok(page);
   }
+
+  @ApiResponse(responseCode = "404", description = "Tag not found", content = {
+      @Content(schema = @Schema())})
+  @ApiResponse(responseCode = "200", description = "Tags found", content = {
+      @Content(schema = @Schema(implementation = TagDTO.class))})
+  @GetMapping("/trending")
+  @Override
+  public ResponseEntity<List<TagDTO>> serveTagsOrderedByPostsCount() {
+    List<TagDTO> tags = this.service.serveTagsOrderByPostNum().stream().map(this.mapper::toDTO)
+        .toList();
+    return ResponseEntity.ok(tags);
+
+  }
+
 
 }
