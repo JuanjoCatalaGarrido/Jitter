@@ -23,11 +23,7 @@ public @Data class PostDTO implements Serializable {
   private Set<UserPostShareDTO> usersWhoShared = Collections.emptySet();
   private Set<ReportDTO> reports = Collections.emptySet();
   private Set<InteractionDTO> interactions = Collections.emptySet();
-
-  @JsonProperty(access = Access.READ_ONLY)
-  public Long getId() {
-    return this.id;
-  }
+  
 
   @JsonProperty(access = Access.READ_ONLY)
   public Timestamp getCreatedAt() {

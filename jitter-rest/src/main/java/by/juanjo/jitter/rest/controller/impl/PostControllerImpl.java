@@ -9,6 +9,7 @@ import by.juanjo.jitter.core.mapper.PostMapper;
 import by.juanjo.jitter.rest.controller.PostController;
 import by.juanjo.jitter.rest.exception.ElementNotFoundException;
 import by.juanjo.jitter.rest.service.PostService;
+import by.juanjo.jitter.rest.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,11 +40,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostControllerImpl implements PostController {
 
   private final PostService postService;
+  private final UserService userService;
   private final PostMapper postMapper;
 
   @Autowired
-  public PostControllerImpl(PostService postService, PostMapper postMapper) {
+  public PostControllerImpl(PostService postService, UserService userService,
+      PostMapper postMapper) {
     this.postService = postService;
+    this.userService = userService;
     this.postMapper = postMapper;
   }
 
