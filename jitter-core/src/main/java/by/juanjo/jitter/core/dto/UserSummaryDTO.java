@@ -15,6 +15,8 @@ public @Data class UserSummaryDTO implements Serializable {
   private String password;
   private String email;
   private String profileImgUrl;
+  private Integer followersCount = 0;
+  private Integer followsCount = 0;
   private Timestamp verifiedAt;
   private Timestamp createdAt;
   private Timestamp updatedAt;
