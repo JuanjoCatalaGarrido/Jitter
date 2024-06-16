@@ -1,5 +1,4 @@
 'use strict'
-import mockedUserInfo from '../assets/mocks/userInfoMock.json';
 import {useEffect, useMemo, useState} from "react";
 import {resolveEndpoint} from "../utils/endpoints";
 import {useAuth} from "./authentication";
