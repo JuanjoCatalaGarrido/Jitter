@@ -36,7 +36,8 @@ public @Data class SecurityConfig {
   private JWTAuthenticationEntryPoint authenticationEntryPoint;
 
   @Autowired
-  public SecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthFilter jwtAuthFilter,
+  public SecurityConfig(UserDetailsServiceImpl userDetailsService,
+      JwtAuthFilter jwtAuthFilter,
       JWTAuthenticationEntryPoint authenticationEntryPoint) {
     this.userDetailsService = userDetailsService;
     this.jwtAuthFilter = jwtAuthFilter;
@@ -56,6 +57,7 @@ public @Data class SecurityConfig {
             .requestMatchers(new AntPathRequestMatcher("/doc/swagger-ui/**"),
                 new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
             .anyRequest().authenticated()
+            .anyRequest().permitAll()
         )
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -74,7 +76,7 @@ public @Data class SecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfiguration() {
     CorsConfiguration corsConfig = new CorsConfiguration();
-    corsConfig.addAllowedOrigin("http://localhost:3010");
+    corsConfig.addAllowedOrigin("http://localhost:80");
     corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
     corsConfig.addAllowedHeader("Authorization");
     corsConfig.addAllowedHeader("Content-Type");
