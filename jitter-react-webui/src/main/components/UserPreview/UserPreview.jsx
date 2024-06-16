@@ -27,7 +27,7 @@ export function UserPreview({userData}){
                     <img src={userData.profileImgUrl}/>
                 </div>
                 <div className={"user-information"}>
-                    <span className={"username"}>@{userData.username}</span>
+                    {<a className={"highlight-text-color "} href={`/user/${userData.id}`}>@{userData.username}</a>}
                     <p className={"follows"}>Seguidos: <span className={"highlight-text-color"}>{userData.followsCount}</span></p>
                     <p className={"followers"}>Seguidores: <span className={"highlight-text-color"}>{userData.followersCount}</span></p>
                 </div>
