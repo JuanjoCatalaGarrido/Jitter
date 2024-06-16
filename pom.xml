@@ -18,6 +18,7 @@
   <modules>
     <module>jitter-core</module>
     <module>jitter-rest</module>
+    <module>jitter-react-webui</module>
   </modules>
   <properties>
     <java.version>21</java.version>

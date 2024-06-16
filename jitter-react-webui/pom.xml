@@ -82,7 +82,7 @@
               </outputDirectory>
               <resources>
                 <resource>
-                  <directory>./target/generated-test-sources/bundled-src/</directory>
+                  <directory>./target/dist</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>
