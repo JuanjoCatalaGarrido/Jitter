@@ -48,16 +48,11 @@ public @Data class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/", "/index.html").permitAll()
-            .requestMatchers("/favicon.ico").permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
             .requestMatchers("/error").permitAll()
             .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
             .requestMatchers(new AntPathRequestMatcher("/doc/swagger-ui/**"),
                 new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
             .anyRequest().authenticated()
-            .anyRequest().permitAll()
         )
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
