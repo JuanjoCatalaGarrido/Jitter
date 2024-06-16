@@ -4,10 +4,13 @@ import './dashboardPage.scss'
 import {UserInfoPanel} from "../../components/UserInfoPanel/UserInfoPanel";
 import {useLoggedUserInfo} from "../../hooks/users";
 import {useEffect, useState} from "react";
+import {resolveEndpoint} from "../../utils/endpoints";
+import axios from "axios";
 
 export function DashboardPage(){
     const [userInfo, setUserInfo] =  useLoggedUserInfo();
     const [error, setError] = useState(null);
+    const [trendingTags,  setTrendingTags] = useState([]);
 
     useEffect(() => {
         if(!userInfo){
@@ -16,6 +19,15 @@ export function DashboardPage(){
             setError(null);
         }
     }, [userInfo]);
+
+    useEffect(() => {
+        axios.get(resolveEndpoint(`/api/tags/trending`))
+            .then((res) => {
+                console.log(JSON.stringify(res.data.content))
+                setTrendingTags(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
 
     return (
         <div className={"dashboard"}>
@@ -34,7 +46,11 @@ export function DashboardPage(){
             <aside className={"right-aside"}>
                 <h3>Etiquetas con más posts</h3>
                 <div className={"tags-container"}>
-
+                    {
+                        trendingTags != null && trendingTags.slice(0, 5).map((item, index) => (
+                            <span key={index} className={"highlight2-text-color"}>#{item.name}</span>
+                        ))
+                    }
                 </div>
             </aside>
             <aside className={"left-aside"}>

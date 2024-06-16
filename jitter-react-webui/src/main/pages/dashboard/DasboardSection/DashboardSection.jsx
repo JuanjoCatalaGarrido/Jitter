@@ -1,18 +1,35 @@
 import './dashboardSection.scss'
-import {UserInfoPanel} from "../../../components/UserInfoPanel/UserInfoPanel";
 import {useEffect, useState} from "react";
-import {useLoggedUserInfo, useUserInfo} from "../../../hooks/users";
-import {AuthProvider, useAuth} from "../../../hooks/authentication";
 import {PostsInfiniteScroll} from "./PostsInfiniteScroll/PostsInfiniteScroll";
 import {Icon} from "@iconify/react";
 import axios from "axios";
-import {resolveEndpoint} from "../../../utils/endpoints";
+import {resolveAIEndpoint, resolveEndpoint} from "../../../utils/endpoints";
 
 export function DashboardSection({userInfo}) {
     const [postText, setPostText] = useState("");
 
     function handlePostFieldChange(e){
+        e.preventDefault();
         setPostText(e.target.value);
+    }
+
+    function handleAIButtonClick(e){
+        e.preventDefault();
+        if(postText === ""){
+            return;
+        }
+
+        console.log(resolveAIEndpoint(`/api/ai?prompt=${postText}`.replaceAll(" ", "%20")));
+        setPostText("Generando respuesta...");
+        axios.get(resolveAIEndpoint(`/api/ai?prompt=${postText}`).replaceAll(" ", "%20"))
+            .then((response) => {
+                let choices = response.data.choices;
+                setPostText(choices[0].text);
+
+            }).catch((reason) => {
+                setPostText("Error de conexión con la API de AI")
+        });
+
     }
 
     function handlePostCreation(e){
@@ -47,7 +64,7 @@ export function DashboardSection({userInfo}) {
                     <Icon icon="material-symbols:send" width={"2rem"} onClick={handlePostCreation}/>
                 </div>
                 <div className={"ai-icon-container secondary-bg-color"}>
-                    <Icon icon="material-symbols:robot-2-outline" width={"2rem"}/>
+                    <Icon icon="material-symbols:robot-2-outline" width={"2rem"} onClick={handleAIButtonClick}/>
                 </div>
             </div>
           </div>

@@ -30,6 +30,7 @@ nav {
 
 .right-aside {
   grid-area: aside-right;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   border-left:  1px solid $secondary-text-color;
@@ -39,7 +40,10 @@ nav {
   }
 
   .tags-container{
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

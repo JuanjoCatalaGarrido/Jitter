@@ -12,7 +12,6 @@ export function PostsInfiniteScroll({userId}){
     const [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
-        console.log("GET : " + resolveEndpoint(`/api/feed/posts/forUser/${userId}/paginated/${pageIndex}?numElements=3`))
         axios.get(resolveEndpoint(`/api/feed/posts/forUser/${userId}/paginated/${pageIndex}?numElements=3`))
             .then((res) => {
                 setApiResponse(res.data);
