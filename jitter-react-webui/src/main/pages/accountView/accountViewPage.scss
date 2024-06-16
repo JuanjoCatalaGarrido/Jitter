@@ -1,0 +1,27 @@
+@import "../../layout";
+
+.account-view{
+
+  nav {
+
+  }
+  .user-preview {
+    width: 50%;
+    margin: 2rem auto;
+  }
+
+  .account-view-subtitle{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .posts-wrapper {
+    width: 75%;
+    padding: 0 1rem;
+    margin: 0 auto;
+    border: 1px solid $third-color;
+  }
+}
+
+
