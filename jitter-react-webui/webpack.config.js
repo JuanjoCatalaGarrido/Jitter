@@ -1,4 +1,5 @@
 let path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/main/main.jsx',
@@ -6,8 +7,9 @@ module.exports = {
   cache: true,
   mode: 'development',
   output: {
-    path: path.join(__dirname, '/target/generated-test-sources/bundled-src/'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
     port: 3010,
@@ -16,6 +18,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  plugins: [
+    new Dotenv(),
+  ],
   module: {
     rules: [
       {
@@ -38,7 +43,25 @@ module.exports = {
           // Compiles Sass to CSS
           "sass-loader",
         ],
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'images/', // Output path for the SVG files
+          },
+        },
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ]
   }
 };

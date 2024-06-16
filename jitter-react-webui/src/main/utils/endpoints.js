@@ -1,5 +1,5 @@
 
-import {API_HOSTNAME, API_PORT, AI_API_PORT} from '../config/globalVars'
+import {API_HOSTNAME, API_PORT, AI_API_HOSTNAME, AI_API_PORT} from '../config/globalVars'
 
 export function resolveEndpoint(serverPath){
     let socket = "http://" + API_HOSTNAME + ":" + API_PORT;
@@ -11,7 +11,7 @@ export function resolveEndpoint(serverPath){
 
 
 export function resolveAIEndpoint(serverPath){
-    let socket = "http://" + API_HOSTNAME + ":" + AI_API_PORT;
+    let socket = "http://" + AI_API_HOSTNAME + ":" + AI_API_PORT;
     if(!serverPath.startsWith("/")){
         return socket + "/" + serverPath;
     }
