@@ -11,6 +11,9 @@ import {LoginPage} from "./pages/login/LoginPage";
 import {DashboardPage} from "./pages/dashboard/DashboardPage";
 import {ProtectedRoute} from "./components/ProtectedRoute/ProtectedRoute";
 import {AuthProvider} from "./hooks/authentication";
+import {ExploreAccountsPage} from "./pages/exploreAccounts/ExploreAccountsPage";
+import {AccountViewPage} from "./pages/accountView/AccountViewPage";
+import {ProfileInfoPage} from "./pages/profileInfo/ProfileInfoPage";
 
 export function App() {
   return (
@@ -25,6 +28,9 @@ export function App() {
                     <DashboardPage/>
                 </ProtectedRoute>
             }/>
+            <Route path={"/explore-accounts"} element={<ExploreAccountsPage/>}/>
+            <Route path={"/user/:id"} element={<AccountViewPage/>}/>
+              <Route path={"/profile"} element={<ProfileInfoPage/>}/>
           </Routes>
         </BrowserRouter>
       </StrictMode>
