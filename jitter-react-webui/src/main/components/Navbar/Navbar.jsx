@@ -3,15 +3,11 @@ import {Button} from "../Button/Button";
 import {NavbarItem} from "./NavbarItem/NavbarItem";
 import './navbar.scss';
 import {useAuth} from "../../hooks/authentication";
-import {useEffect} from "react";
 import {Icon} from "@iconify/react";
+import iconImage from "../../assets/images/icon.png"
 
 export function Navbar(){
     const {token, setToken, username} = useAuth();
-
-    useEffect(() => {
-        console.log("TOKEN: " + token)
-    }, []);
 
     function handleLogoutClick(e){
         e.preventDefault();
@@ -21,7 +17,7 @@ export function Navbar(){
     return (
         <nav>
             <div className={"nav-img-container"}>
-                <img src={""} alt={"Jitter Icon"}/>
+                <img src={iconImage} alt={"Jitter Icon"}/>
             </div>
             <div className={"nav-menu-container"}>
                 <NavbarItem className={"terms-of-services"} href={"/tos"}>Términos de servicio</NavbarItem>
@@ -53,7 +49,9 @@ export function Navbar(){
                             <div className={"profile-pic-container secondary-bg-color"}>
                                 <Icon icon="ph:user-bold" width={"2rem"}/>
                             </div>
-                            <span>{username}</span>
+                            <NavbarItem
+                                className={"profile"}
+                                href={"/profile"}>{username}</NavbarItem>
                         </div>
                 }
 
