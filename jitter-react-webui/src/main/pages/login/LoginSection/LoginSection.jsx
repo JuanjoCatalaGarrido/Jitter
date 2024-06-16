@@ -11,9 +11,9 @@ export function LoginSection(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const {token, setToken} = useAuth(null);
+    const {token, setToken} = useAuth();
 
-    function handleusernameChange (e){
+    function handleUsernameChange (e){
         setUsername(e.target.value);
     }
 
@@ -58,7 +58,7 @@ export function LoginSection(){
                 )}
                 <div className="form-outline mb-4">
                     <label className="form-label" htmlFor="username-input">Usuario</label>
-                    <input type="text" id="username-input" className="form-control" required={true} onChange={handleusernameChange}/>
+                    <input type="text" id="username-input" className="form-control" required={true} onChange={handleUsernameChange}/>
                 </div>
 
                 <div className="form-outline mb-4">
@@ -81,7 +81,7 @@ export function LoginSection(){
                     </div>
                 </div>
 
-                <button type="button " className="btn btn-primary secondary-bg-color btn-block mb-4">
+                <button type="button" className="btn btn-primary secondary-bg-color btn-block mb-4" onClick={handleFormSubmit}>
                     Inicia sesión
                 </button>
 
