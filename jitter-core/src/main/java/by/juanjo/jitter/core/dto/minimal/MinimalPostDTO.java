@@ -9,6 +9,7 @@ import lombok.Data;
 public @Data class MinimalPostDTO implements Serializable {
 
   private Long id;
+  private MinimalUserDTO owner;
   private String body;
   private Timestamp createdAt;
   private Timestamp updatedAt;
