@@ -7,4 +7,4 @@ WHERE `username` IN ('admin', 'jane_smith');
 
 UPDATE `Jitter`.`users`
 SET `profile_img_url` = NULL
-WHERE `username` IN ('noah_king', 'emma_lee');
+WHERE `username` IN ('noah_king', 'emma_lee', 'admin');
