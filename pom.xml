@@ -17,7 +17,6 @@
   <description>Un servicio de microblogueo basado en Java</description>
   <modules>
     <module>jitter-core</module>
-    <module>jitter-react-webui</module>
     <module>jitter-rest</module>
     <module>jitter-react-webui</module>
   </modules>
