@@ -14,6 +14,8 @@ import {AuthProvider} from "./hooks/authentication";
 import {ExploreAccountsPage} from "./pages/exploreAccounts/ExploreAccountsPage";
 import {AccountViewPage} from "./pages/accountView/AccountViewPage";
 import {ProfileInfoPage} from "./pages/profileInfo/ProfileInfoPage";
+import {AboutUsPage} from "./pages/aboutUs/AboutUsPage";
+import {TOSPage} from "./pages/TOS/TOSPage";
 
 export function App() {
   return (
@@ -21,16 +23,18 @@ export function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage/>}/>
+            <Route path="/about-us" element={<AboutUsPage/>}/>
+            <Route path="/tos" element={<TOSPage/>}/>
             <Route path="/register" element={<RegisterPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/dashboard" element={
-                <ProtectedRoute redirectOnFail={"/login"}>
-                    <DashboardPage/>
-                </ProtectedRoute>
+              <ProtectedRoute redirectOnFail={"/login"}>
+                <DashboardPage/>
+              </ProtectedRoute>
             }/>
             <Route path={"/explore-accounts"} element={<ExploreAccountsPage/>}/>
             <Route path={"/user/:id"} element={<AccountViewPage/>}/>
-              <Route path={"/profile"} element={<ProfileInfoPage/>}/>
+            <Route path={"/profile"} element={<ProfileInfoPage/>}/>
           </Routes>
         </BrowserRouter>
       </StrictMode>
