@@ -84,6 +84,11 @@ public @Data class UserJWTProviderImpl implements UserJWTProvider {
   }
 
   @Override
+  public String retrieveUsername(String token) throws JsonProcessingException {
+    return retrieve(token).getPayload().get("username", String.class);
+  }
+
+  @Override
   public Date retrieveIssueDate(String token) throws JsonProcessingException {
     return retrieve(token).getPayload().getIssuedAt();
   }

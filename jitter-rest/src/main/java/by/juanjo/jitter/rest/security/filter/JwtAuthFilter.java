@@ -68,7 +68,7 @@ public @Data class JwtAuthFilter extends OncePerRequestFilter {
       throw new InvalidJwtTokenException();
     }
 
-    String username = this.jwtProvider.retrieveSubject(token);
+    String username = this.jwtProvider.retrieveUsername(token);
     UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

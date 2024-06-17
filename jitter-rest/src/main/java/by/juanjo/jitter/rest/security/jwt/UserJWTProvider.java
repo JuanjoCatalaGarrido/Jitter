@@ -16,6 +16,8 @@ public interface UserJWTProvider {
 
   public String retrieveSubject(String token) throws JsonProcessingException;
 
+  public String retrieveUsername(String token) throws JsonProcessingException;
+
   public Date retrieveIssueDate(String token) throws JsonProcessingException;
 
   public Date retrieveExpiration(String token) throws JsonProcessingException;
