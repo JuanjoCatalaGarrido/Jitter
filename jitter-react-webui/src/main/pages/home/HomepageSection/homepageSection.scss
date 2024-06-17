@@ -1,0 +1,63 @@
+@import '../../../layout';
+
+
+.homepage-section {
+  padding-top: 5%;
+
+  main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+  .section-call-to-action-container {
+    flex-basis: 55%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+
+    .title {
+      width: 80%;
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      width: 45%;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .button {
+      padding-right: 2rem;
+      padding-left: 2rem;
+      box-shadow: 0 4px 2px -2px gray;
+    }
+  }
+
+    .section-image-container {
+      flex-basis: 40%;
+
+      img {
+        width: 100%;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  .section-cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    margin-top: 4rem;
+
+    .section-card {
+      height: 10rem;
+      background-color: $secondary-text-color
+    }
+  }
+}

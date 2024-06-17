@@ -1,0 +1,39 @@
+@import '../../layout';
+
+  .comment {
+    display: flex;
+    flex-direction: row;
+    margin: 1.5rem;
+    padding: 0.5rem;
+    border-top: 1px solid $secondary-text-color;
+
+    .user-img-container {
+      flex-basis: 10%;
+    }
+
+    .comment-content{
+      flex-basis: 90%;
+
+      .comment-content-first-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .comment-content-username {
+          align-self: flex-start;
+        }
+
+        .comment-content-timestamp {
+          align-self: flex-end;
+          color: $secondary-text-color;
+        }
+      }
+
+      .comment-content-body {
+
+      }
+    }
+
+  }
+
+

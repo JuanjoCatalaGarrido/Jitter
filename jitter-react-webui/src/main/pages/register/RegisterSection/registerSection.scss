@@ -1,0 +1,20 @@
+@import '../../../layout';
+
+.register-section {
+  min-height: 100%;
+}
+
+.register-section {
+  display: flex;
+  justify-content: center;
+
+  form {
+    flex-basis: 28%;
+    padding-top: 1rem;
+
+    h2 {
+      text-align: center;
+      padding-bottom: 1rem;
+    }
+  }
+}

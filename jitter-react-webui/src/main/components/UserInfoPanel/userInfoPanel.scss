@@ -1,0 +1,35 @@
+@import '../../layout';
+
+.user-info-panel {
+
+  padding-top: 2rem;
+
+  .profile-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+
+    img {
+      width: 8rem;
+      border-radius: 50%;
+      border: 1px solid black;
+      padding: 1rem;
+    }
+  }
+
+  .profile-statistics {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 50%;
+    align-items: flex-start;
+
+    .follows-container, .followers-container {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+}

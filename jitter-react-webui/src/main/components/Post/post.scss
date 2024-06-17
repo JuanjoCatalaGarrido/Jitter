@@ -1,0 +1,90 @@
+@import '../../layout';
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  padding: 1rem; /* Aumenta el padding para un diseño más espacioso */
+  border: 1px solid $secondary-text-color;
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
+    transform: translateY(-4px); /* Levanta ligeramente el post */
+  }
+
+  .post-main {
+    display: flex;
+    flex-direction: row;
+
+    .user-img-container {
+      flex-basis: 10%;
+    }
+
+    .post-content {
+      flex-basis: 90%;
+      display: flex;
+      flex-direction: column;
+
+      .post-content-first-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .post-content-username {
+          align-self: flex-start;
+        }
+
+        .post-content-timestamp {
+          align-self: flex-end;
+          color: $secondary-text-color;
+        }
+      }
+
+      .post-content-body {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  .post-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem; /* Espacio superior para separar opciones del contenido */
+
+    .options-container {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .comments-container {
+    margin-top: 1rem;
+    animation: fadeIn 0.5s ease-in-out; /* Animación de aparición */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* Desplazamiento inicial */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Estado final */
+  }
+}
+
+.clickable-icon {
+  cursor: pointer; /* Cambia el cursor a mano al pasar por el icono */
+  transition: transform 0.2s, color 0.2s; /* Transición para efectos de hover */
+
+  &:hover {
+    transform: scale(1.2); /* Aumenta ligeramente el tamaño */
+    color: #007BFF; /* Cambia el color al pasar el mouse (puedes cambiar el color al que prefieras) */
+  }
+}

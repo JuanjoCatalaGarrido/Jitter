@@ -1,0 +1,12 @@
+@import '../../../../layout';
+
+
+#scrollableContainer{
+  overflow: auto;
+  height: 30rem;
+}
+
+
+.no-more-feed-message, .loading-message{
+  text-align: center;
+}

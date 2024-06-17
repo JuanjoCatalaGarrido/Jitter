@@ -1,0 +1,47 @@
+@import "../../layout";
+
+.user-preview {
+  width: 90%;
+
+  display: flex;
+  flex-direction: row;
+  border: 1px solid $secondary-text-color;
+
+  .user-preview-first-section {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: row;
+
+    .user-image-container{
+      flex-basis: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .user-information {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+
+      .username {
+        flex-basis: 50%;
+        display: inline-block;
+        align-self: flex-start
+      }
+      .follows, .followers {
+        flex-basis: 25%;
+        align-self: flex-start;
+    }
+      
+  }
+}
+
+ .user-preview-follow-button-container {
+   flex-basis: 60%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+}

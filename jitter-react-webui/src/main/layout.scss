@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+html, body, #react {
+  height: 100%;
+}
+
+$primary-color: white;
+$secondary-color: #00A9FF;
+$third-color: #89CFF3;
+
+$primary-text-color: black;
+$secondary-text-color: #464853;
+$third-text-color: #89CFF3;
+
+$third-text-color: white;
+$highlight-text-color: #00A9FF;
+
+
+.primary-bg-color {
+  background-color: $primary-color !important;
+}
+.secondary-bg-color {
+  background-color: $secondary-color !important;
+}
+.third-bg-color {
+  background-color: $third-color !important;
+}
+
+
+.primary-text-color {
+  color: $primary-text-color !important;
+}
+
+.secondary-text-color {
+  color: $secondary-text-color !important;
+}
+
+.highlight-text-color {
+  color: $highlight-text-color !important;
+}
+
+.highlight2-text-color {
+  color: $third-color !important;
+}
+
+
+.important-text {
+  color: $primary-text-color!important;
+  font-weight: 900;
+}
+
+.secondary-text {
+  color: $secondary-text-color !important;
+  font-weight: 900;
+}
+
+.title {
+  color: $primary-text-color !important;
+  font-weight: 900;
+  font-size: 3.75rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #464853;
+  font-weight: 900;
+}
+
+.iconify {
+  cursor: pointer;
+}
